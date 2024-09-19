@@ -1,0 +1,48 @@
+
+
+
+
+#conteudo-curso{
+    float:left;
+    width: 1100px;    
+    margin-left: -100px;
+    margin-bottom: 30px;
+}
+
+
+.bloco-modulo{
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 17px;
+    text-align: left;
+}
+
+.bloco-modulo h3{
+    margin-left: 30px;
+
+
+}
+
+
+#foto-professor{
+
+ 
+    width: 400px;
+    height: 200px;
+    
+
+
+}
+
+#sobre-professor{
+
+    float: left;
+   
+    width: 800px;
+    height:400px;
+    margin-left: 400px;
+    margin-top: -180px;
+    text-align:left;
+}
+
