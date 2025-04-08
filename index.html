@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Caio Malheiros - Sistema de Vendas em C#</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegação -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="#">Prof. Caio Malheiros</a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link">HOME</a></li>
+                    <li><a href="#conteudo" class="nav-link">CONTEÚDO</a></li>
+                    <li><a href="#garantia" class="nav-link">GARANTIA</a></li>
+                    <li><a href="#contato" class="nav-link">CONTATO</a></li>
+                    <li><a href="#comprar" class="nav-link cta-nav">COMPRAR</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">DOMINE A LINGUAGEM <span class="highlight">C#</span> E TORNE-SE O PROGRAMADOR QUE TODA <span class="highlight">EMPRESA</span> DESEJA</h1>
+                <p class="hero-subtitle">Com apenas 14 horas de conteúdo, você vai do zero ao desenvolvimento de um sistema de controle de vendas em C# e MySQL, pronto para usar na faculdade ou gerar renda extra com pequenos comércios.</p>
+                <div class="price-container">
+                    <p class="price-original">De <span class="strikethrough">R$ 597</span> por apenas</p>
+                    <p class="price-current">R$ 49,90</p>
+                </div>
+                <div class="cta-container">
+                    <a href="#comprar" class="btn btn-primary btn-large">GARANTIR MINHA INSCRIÇÃO!</a>
+                    <p class="urgency-text"><i class="fas fa-clock"></i> Oferta por tempo limitado - Restam apenas 11 vagas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vídeo de Apresentação -->
+    <section class="video-section">
+        <div class="container">
+            <h2 class="section-title">CONHEÇA O PROJETO QUE VAMOS CONSTRUIR JUNTOS DURANTE O CURSO</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/Scu6oF6tj9Y?si=FZRXPEM-fsEFd3tx" title="Apresentação do Curso" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="cta-container center">
+                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary">GARANTIR MINHA INSCRIÇÃO!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section class="benefits-section" id="beneficios">
+        <div class="container">
+            <h2 class="section-title">POR QUE ESCOLHER ESTE CURSO?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="benefit-title">CURSO TOTALMENTE EM VÍDEO AULAS EM ALTA DEFINIÇÃO</h3>
+                    <p class="benefit-description">Com aulas em Alta Definição, você estuda e revê as aulas quando e onde quiser aproveitando 100% do conteúdo!</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="benefit-title">SUPORTE ESPECIALIZADO EM CADA AULA</h3>
+                    <p class="benefit-description">Todas as dúvidas serão respondidas individualmente em cada aula e sem intermediários. Além disso você terá acesso ao grupo exclusivo do curso.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="benefit-title">SUA SATISFAÇÃO OU SEU DINHEIRO DE VOLTA</h3>
+                    <p class="benefit-description">Você terá 7 dias para testar nossa plataforma, caso não goste devolvemos seu dinheiro!</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="benefit-title">TURMAS LIMITADAS PARA MELHOR ATENDIMENTO</h3>
+                    <p class="benefit-description">Turmas com vagas limitadas para aumentar a qualidade no atendimento ao aluno.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mercado de Trabalho -->
+    <section class="market-section">
+        <div class="container">
+            <h2 class="section-title">TRANSFORME SUA CARREIRA <span class="highlight">com a Linguagem C#</span> mais utilizada no mundo!</h2>
+            <p class="section-subtitle">Grandes empresas confiam em C# para desenvolver sistemas robustos. A estabilidade e a segurança que C# oferece tornam-no perfeito para esses cenários, por isso as vagas oferecem altos salários.</p>
+            
+            <div class="market-stats">
+                <div class="stat-highlight">São mais de <span class="highlight">2.500 vagas</span> e o mercado não para de crescer</div>
+            </div>
+            
+            <div class="job-listings">
+                <div class="job-card">
+                    <div class="company-logo">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="job-details">
+                        <h3>Desenvolvedor C#</h3>
+                        <p class="salary-range">R$ 3 mil - R$ 8 mil</p>
+                        <p class="job-location">Remoto / Presencial</p>
+                    </div>
+                    <div class="job-openings">
+                        <span>35 vagas abertas</span>
+                    </div>
+                </div>
+                <div class="job-card">
+                    <div class="company-logo">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="job-details">
+                        <h3>Desenvolvedor .NET</h3>
+                        <p class="salary-range">R$ 4 mil - R$ 9 mil</p>
+                        <p class="job-location">Remoto / Presencial</p>
+                    </div>
+                    <div class="job-openings">
+                        <span>42 vagas abertas</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-container center">
+                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary">GARANTIR MEU ACESSO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conteúdo do Curso -->
+    <section class="curriculum-section" id="conteudo">
+        <div class="container">
+            <h2 class="section-title">DO ZERO AO AVANÇADO, <span class="highlight">o que você vai aprender neste curso</span></h2>
+            <p class="section-subtitle">Neste curso, você não apenas aprenderá C#; você se tornará PROFISSIONAL na linguagem mais usada no mundo. Apto para as melhores vagas do mercado.</p>
+            
+            <div class="curriculum-grid">
+                <div class="curriculum-item">
+                    <div class="curriculum-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="curriculum-content">
+                        <h3>Módulo - Gerenciamento de Clientes</h3>
+                        <p><i class="fas fa-play-circle"></i> 19 aulas</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="curriculum-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="curriculum-content">
+                        <h3>Módulo - Gerenciamento de Funcionários</h3>
+                        <p><i class="fas fa-play-circle"></i> 10 aulas</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="curriculum-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <div class="curriculum-content">
+                        <h3>Módulo - Gerenciamento de Fornecedores</h3>
+                        <p><i class="fas fa-play-circle"></i> 07 aulas</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="curriculum-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="curriculum-content">
+                        <h3>Módulo - Gerenciamento de Produtos</h3>
+                        <p><i class="fas fa-play-circle"></i> 09 aulas</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="curriculum-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <div class="curriculum-content">
+                        <h3>Módulo de Autenticação</h3>
+                        <p><i class="fas fa-play-circle"></i> 08 aulas</p>
+                    </div>
+                </div>
+                <div class="curriculum-item">
+                    <div class="curriculum-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="curriculum-content">
+                        <h3>Módulo - Vendas</h3>
+                        <p><i class="fas fa-play-circle"></i> 27 aulas</p>
+                    </div>
+                </div>
+               
+            </div>
+            
+            <div class="curriculum-toggle">
+                <button class="btn btn-secondary" id="toggleCurriculum">VER GRADE CURRICULAR COMPLETA</button>
+            </div>
+            
+            <div class="cta-container center">
+                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary btn-large">GARANTIR MEU ACESSO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">ALUNOS QUE TRANSFORMARAM SUAS VIDAS COM O CURSO DE C#</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Márcio+Roberto&background=0D8ABC&color=fff" alt="Márcio Roberto">
+                        </div>
+                        <div class="testimonial-info">
+                            <h3>Márcio Roberto Rosa D.</h3>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-date">há 2 meses</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>O instrutor tem excelente didática e simplifica os comandos, o que facilita no aprendizado. Parabéns!!!</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Hudney+Gomes&background=0D8ABC&color=fff" alt="Hudney Gomes">
+                        </div>
+                        <div class="testimonial-info">
+                            <h3>Hudney Gomes N.</h3>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-date">há 2 meses</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>Curso é excelente, para mim foi enriquecedor de mais. Agradeço ao professor Caio. Até a última aula, aula 80, não tinha sido feita a parte para alterar o usuário, acredito que terá novas aulas porque no último vídeo ele encerra a aula para não ficar longa e de despede até falando até a próxima aula.</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Igor+Ribeiro&background=0D8ABC&color=fff" alt="Igor Ribeiro">
+                        </div>
+                        <div class="testimonial-info">
+                            <h3>Igor Ribeiro D.</h3>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-date">há 3 semanas</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>Um ótimo curso para quem já tem uma noção básica sobre a linguagem C# e SQL. Foi muito satisfatório um curso focado mais na parte prática, o professor possui uma ótima didática e sabe explicar muito bem o que está sendo feito.</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Carlos+Roberto&background=0D8ABC&color=fff" alt="Carlos Roberto">
+                        </div>
+                        <div class="testimonial-info">
+                            <h3>Carlos Roberto B.</h3>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-date">há 5 meses</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>O conteúdo e didática do Professor é excelente.</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Marcelo+C&background=0D8ABC&color=fff" alt="Marcelo C">
+                        </div>
+                        <div class="testimonial-info">
+                            <h3>Marcelo C.</h3>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-date">há um mês</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>Excelente curso, ministrado por um excelente professor!</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Fábio+C&background=0D8ABC&color=fff" alt="Fábio C">
+                        </div>
+                        <div class="testimonial-info">
+                            <h3>Fábio C.</h3>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-date">há 8 meses</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>Gostei bastante do conteúdo, mesmo não tendo o módulo de nfe de compra e de saída. Mas eu recomendo demais, o Caio tem uma boa didática o curso é bem estruturado e bem explicado, o professor dá suporte pelo telegram, responde muito rápido as dúvidas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre o Professor -->
+    <section class="instructor-section">
+        <div class="container">
+            <h2 class="section-title">CONHEÇA SEU <span class="highlight">PROFESSOR</span> nessa jornada de aprendizado</h2>
+            
+            <div class="instructor-profile">
+                <div class="instructor-image">
+                    <img src="./assets/perfil.jpeg" alt="Prof. Caio Malheiros">
+                </div>
+                <div class="instructor-info">
+                    <h3>Prof. Caio Malheiros</h3>
+                    <p class="instructor-title">Desenvolvedor & Instrutor</p>
+                    <p class="instructor-bio">
+                        Caio Malheiros é Desenvolvedor Full Stack com mais de 8 anos de experiência. Especialista em .NET e C#, 
+                        já desenvolveu dezenas de sistemas e aplicações para empresas de diversos segmentos. 
+                        Sua paixão pelo ensino o levou a criar cursos que já impactaram mais de 10 mil alunos, 
+                        sempre com foco em conteúdo prático e aplicável ao mercado de trabalho.
+                    </p>
+                    <div class="instructor-stats">
+                        <div class="stat">
+                            <span class="stat-number">3.752+</span>
+                            <span class="stat-label">Alunos</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">8+</span>
+                            <span class="stat-label">Anos de Experiência</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">4.9/5</span>
+                            <span class="stat-label">Avaliação Média</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bônus Exclusivos -->
+    <section class="bonus-section">
+        <div class="container">
+            <h2 class="section-title"><span class="highlight">BÔNUS EXCLUSIVOS</span> apenas para os 50 primeiros alunos nessa oferta</h2>
+            <p class="bonus-counter">Garanta já! Restam apenas <span class="highlight">11 vagas</span> com todos os bônus</p>
+            
+            <div class="bonus-grid">
+                <div class="bonus-card">
+                    <div class="bonus-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Criando Banco de Dados com MYSQL</h3>
+                    <p>No curso você vai aprender SQL de um jeito direto e aplicável, desenvolvendo um projeto real: o banco de dados de um sistema de vendas.ais de 20 h</p>
+                </div>
+                <div class="bonus-card">
+                    <div class="bonus-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <h3>Comunidade Exclusiva</h3>
+                    <p>Acesso ao grupo exclusivo com outros alunos e suporte direto do professor para tirar dúvidas.</p>
+                </div>
+                <div class="bonus-card">
+                    <div class="bonus-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>Templates Prontos para Projetos em C#</h3>
+                    <p>Economize tempo com templates prontos para iniciar seus projetos mais rapidamente.</p>
+                </div>
+            </div>
+            
+            <div class="cta-container center">
+                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary btn-large">GARANTIR MINHA INSCRIÇÃO COM BÔNUS!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garantia -->
+    <section class="guarantee-section" id="garantia">
+        <div class="container">
+            <div class="guarantee-content">
+                <div class="guarantee-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png" alt="Garantia de 7 dias">
+                </div>
+                <div class="guarantee-text">
+                    <h2 class="section-title">GARANTIA INCONDICIONAL DE 7 DIAS</h2>
+                    <p>Se você não gostar do curso ou não perceber uma evolução clara nos primeiros 7 dias, devolvemos 100% do seu dinheiro. Sem letras miúdas!</p>
+                    <div class="security-badges">
+                        <span><i class="fas fa-lock"></i> Pagamento Seguro</span>
+                        <span><i class="fas fa-shield-alt"></i> Dados Protegidos</span>
+                        <span><i class="fas fa-credit-card"></i> Diversas Formas de Pagamento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">PERGUNTAS FREQUENTES</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>O curso é adequado para iniciantes?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, este curso é voltado para pessoas que estão iniciando os estudos em programação. Começamos do zero e avançamos gradualmente.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Posso parcelar o pagamento do curso?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, é possível realizar a compra do curso parcelado no cartão de crédito em até 12x.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Há alguma política de reembolso?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, dentro de 7 dias após a compra do curso, será possível solicitar o reembolso integral sem questionamentos.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Quais são as opções de pagamento disponíveis?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Aceitamos cartões de crédito de todas as bandeiras, boleto bancário e PIX.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>O material do curso está atualizado?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, todas as nossas aulas estão de acordo com a versão mais recente do C# e .NET.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Após o curso receberei certificado?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, após o término do curso, o certificado ficará disponível para download na plataforma.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Após a compra, o acesso ao curso é vitalício?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, uma vez adquirido, o aluno poderá acessar o curso sempre que quiser, sem restrições de tempo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chamada Final -->
+    <section class="final-cta-section">
+        <div class="container">
+            <h2 class="section-title">APRENDA COMO SE FAZ TELA DE LOGIN, TELA DE SPLASH, TELA PARA RECUPERAR SENHA E MUITO MAIS!</h2>
+            
+            <div class="cta-container center">
+                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary btn-xl" id="comprar">GARANTIR MINHA INSCRIÇÃO AGORA!</a>
+                <p class="urgency-text"><i class="fas fa-exclamation-circle"></i> Oferta por tempo limitado - Preço aumentará em breve</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="contact-section" id="contato">
+        <div class="container">
+            <h2 class="section-title">PRECISA DE AJUDA?</h2>
+            <p class="contact-subtitle">Está com dúvidas ou precisa de ajuda? Entre em contato conosco!</p>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <p>11974459689 (WhatsApp)</p>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <p>md.caio@yahoo.com.br</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Prof. Caio Malheiros</h3>
+                    <p>Transformando vidas através da programação</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Redes Sociais</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Prof. Caio Malheiros. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
