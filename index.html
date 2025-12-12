@@ -1,604 +1,1656 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prof. Caio Malheiros - Sistema de Vendas em C#</title>
+    <title>Aprenda C# Criando um Sistema Real - Prof. Caio Malheiros</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .instructor-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+        }
+
+
+
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #1e293b;
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           CONTAINER & LAYOUT
+           ============================================ */
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+
+        .header {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header-cta {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .header-cta:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* =========================
+   Redes sociais (profile-links)
+   ========================= */
+
+        .profile-links {
+            margin-top: 18px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* botão/link base */
+        .profile-links .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            /* pílula */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            background: rgba(37, 99, 235, 0.06);
+            color: #1e3a8a;
+            /* azul escuro agradável */
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+            box-shadow: 0 2px 8px rgba(13, 30, 60, 0.03);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Força os SVGs a herdarem a cor do link */
+        .profile-links .social-link svg {
+            display: block;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: inherit;
+            fill: currentColor;
+            stroke: currentColor;
+        }
+
+        /* hover / foco */
+        .profile-links .social-link:hover,
+        .profile-links .social-link:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.14);
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.06));
+            outline: none;
+        }
+
+        /* estilos específicos por rede (opcionais, deixam mais legível) */
+        .profile-links .social-link[href*="linkedin"] {
+            color: #0a66c2;
+            /* LinkedIn blue */
+            background: linear-gradient(180deg, rgba(10, 102, 194, 0.06), rgba(10, 102, 194, 0.02));
+            border-color: rgba(10, 102, 194, 0.08);
+        }
+
+        .profile-links .social-link[href*="instagram"] {
+            color: #e1306c;
+            /* Instagram-ish */
+            background: linear-gradient(180deg, rgba(225, 48, 108, 0.06), rgba(225, 48, 108, 0.02));
+            border-color: rgba(225, 48, 108, 0.08);
+        }
+
+        /* subtle label hide on very small screens (keeps only icon) */
+        @media (max-width: 420px) {
+            .profile-links .social-link {
+                padding: 8px;
+                gap: 8px;
+                font-size: 0.88rem;
+            }
+
+            .profile-links .social-link span {
+                display: none;
+                /* se você envolver o texto em <span>, isso oculta o texto em telas pequenas */
+            }
+        }
+
+        /* acessibilidade: foco visível */
+        .profile-links .social-link:focus-visible {
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+
+        .hero {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ff 100%);
+            padding: 5rem 1.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+
+        .hero-title .highlight {
+            color: #2563eb;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #475569;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        .price-section {
+            margin: 2rem 0 3rem 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .original-price {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+        }
+
+        .final-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .final-price {
+                font-size: 2.5rem;
+            }
+        }
+
+        .vitalicio {
+             color: #64748b;
+            font-weight: bold;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+
+        .offer-text {
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .trust-text {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+
+        .cta-button {
+            background-color: #2563eb;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 1.5rem auto;
+            display: block;
+            max-width: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cta-button:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           PAIN POINTS SECTION
+           ============================================ */
+
+        .pain-points {
+            padding: 5rem 1.5rem;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .pain-points {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.75rem;
+            }
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 3rem;
+            font-size: 1.85rem;
+        }
+
+        .pain-points-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .pain-points-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .pain-point-card {
+            background-color: #f8fafc;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .pain-point-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .pain-point-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .pain-point-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .pain-point-card p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* ============================================
+           SOLUTION SECTION
+           ============================================ */
+
+        .solution {
+            padding: 5rem 1.5rem;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .solution {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .solution-box {
+            background-color: white;
+            border: 3px solid #2563eb;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin: 2.5rem auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .solution-text {
+            font-size: 1.25rem;
+            color: #0f172a;
+            line-height: 1.8;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .solution-benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 3rem auto;
+        }
+
+        @media (max-width: 768px) {
+            .solution-benefits {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .benefit {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .checkmark {
+            color: #2563eb;
+            font-size: 1.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .benefit p {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .benefit strong {
+            color: #0f172a;
+        }
+
+        /* ============================================
+           TESTIMONIALS SECTION
+           ============================================ */
+
+        .testimonials-section {
+            background-color: #f8fafc;
+            padding: 5rem 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+        }
+
+        .testimonial-info h3 {
+            margin: 0;
+            color: #0f172a;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .testimonial-role {
+            margin: 0.25rem 0 0 0;
+            color: #2563eb;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .testimonial-text {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-rating {
+            color: #fbbf24;
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+        }
+
+        /* ============================================
+           CURRICULUM SECTION
+           ============================================ */
+
+        .curriculum {
+            padding: 5rem 1.5rem;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .curriculum {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .curriculum-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .curriculum-item {
+            background-color: #f8fafc;
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 4px solid #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        .curriculum-item:hover {
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .curriculum-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .curriculum-item h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .curriculum-item p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* ============================================
+           VIDEO SECTION
+           ============================================ */
+
+        .video-section {
+            padding: 5rem 1.5rem;
+            background-color: #f0f4f8;
+        }
+
+        @media (max-width: 768px) {
+            .video-section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .video-container {
+            max-width: 1000px;
+            margin: 3rem auto 0;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ============================================
+           INSTRUCTOR SECTION
+           ============================================ */
+
+        .instructor {
+            padding: 5rem 1.5rem;
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .instructor {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .instructor-card {
+            background-color: #f8fafc;
+            padding: 3rem;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            max-width: 700px;
+            margin: 3rem auto;
+        }
+
+        .instructor-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .instructor-role {
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .instructor-bio {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .instructor-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .instructor-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2563eb;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        /* ============================================
+           FAQ SECTION
+           ============================================ */
+
+        .faq {
+            padding: 5rem 1.5rem;
+            background-color: #f0f4f8;
+        }
+
+        @media (max-width: 768px) {
+            .faq {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            width: 100%;
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0f172a;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .faq-question:hover {
+            background-color: #f8fafc;
+            border-color: #2563eb;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+            display: inline-block;
+            color: #2563eb;
+        }
+
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            padding: 1.5rem;
+            border-radius: 0 0 0.75rem 0.75rem;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* ============================================
+           GUARANTEE SECTION
+           ============================================ */
+
+        .guarantee {
+            padding: 5rem 1.5rem;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .guarantee {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .guarantee-text {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .guarantee-badges {
+            display: flex;
+            flex-direction: row;
+            gap: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .guarantee-badges {
+                flex-direction: column;
+            }
+        }
+
+        .badge {
+            background-color: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            color: #0f172a;
+            font-weight: 600;
+            font-size: 0.95rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* ============================================
+           FINAL CTA SECTION
+           ============================================ */
+
+        .final-cta {
+            padding: 5rem 1.5rem;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .final-cta {
+                padding: 3rem 1rem;
+            }
+        }
+
+        .final-cta .section-title {
+            color: white;
+        }
+
+        .final-cta-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .final-cta .cta-button {
+            background-color: white;
+            color: #2563eb;
+        }
+
+        .final-cta .cta-button:hover {
+            background-color: #f0f4f8;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+
+        .footer {
+            background-color: #0f172a;
+            color: #cbd5e1;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-content a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-content a:hover {
+            color: #2563eb;
+        }
+
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        /* ============================================
+           RESPONSIVE ADJUSTMENTS
+           ============================================ */
+
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .final-price {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .pain-points-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .instructor-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Navegação -->
+    <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="#">Prof. Caio Malheiros</a>
-            </div>
-            <nav class="nav">
-                <ul class="nav-list">
-                    <li><a href="#" class="nav-link">HOME</a></li>
-                    <li><a href="#conteudo" class="nav-link">CONTEÚDO</a></li>
-                    <li><a href="#garantia" class="nav-link">GARANTIA</a></li>
-                    <li><a href="#contato" class="nav-link">CONTATO</a></li>
-                    <li><a href="#comprar" class="nav-link cta-nav">COMPRAR</a></li>
-                </ul>
-                <div class="menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
+        <div class="header-container">
+            <div class="header-logo">Prof. Caio Malheiros</div>
+            <button class="header-cta"
+                onclick="window.open('https://pay.hotmart.com/C43442771B?bid=1744140280903', '_blank')">GARANTIR MINHA
+                VAGA</button>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">DOMINE A LINGUAGEM <span class="highlight">C#</span> E TORNE-SE O PROGRAMADOR QUE TODA <span class="highlight">EMPRESA</span> DESEJA</h1>
-                <p class="hero-subtitle">Com apenas 14 horas de conteúdo, você vai do zero ao desenvolvimento de um sistema de controle de vendas em C# e MySQL, pronto para usar na faculdade ou gerar renda extra com pequenos comércios.</p>
-                <div class="price-container">
-                    <p class="price-original">De <span class="strikethrough">R$ 597</span> por apenas</p>
-                    <p class="price-current">R$ 49,90</p>
+            <h1 class="hero-title">
+                Aprenda C# criando um <span class="highlight">sistema real</span>, mesmo começando do zero.
+            </h1>
+
+            
+            <p class="hero-subtitle">
+                Aprenda programação e ganhe uma habilidade que pode te colocar no mercado ou <b>criar uma fonte de renda
+                    extra</b> em pouco tempo.
+            </p>
+
+            <div class="price-section">
+                <p class="original-price">De <span class="strikethrough">R$ 597</span> por apenas</p>
+                <p class="final-price">R$ 197,90</p>
+                <p class="vitalicio">Com acesso vitálicio</p>
+                
+                <p class="offer-text">Oferta por tempo limitado</p>
+            </div>
+
+            <button class="cta-button"
+                onclick="window.open('https://pay.hotmart.com/C43442771B?bid=1744140280903', '_blank')">GARANTIR MINHA
+                INSCRIÇÃO AGORA E COMEÇAR EM SEMANAS</button>
+
+            <p class="trust-text">✓ Pagamento Seguro • ✓ Dados Protegidos • ✓ Diversas Formas de Pagamento</p>
+        </div>
+    </section>
+
+    <!-- Pain Points Section -->
+    <section class="pain-points">
+        <div class="container">
+            <h2 class="section-title">Cansado de promessas de tentar aprender?</h2>
+            <p class="section-subtitle">Nós entendemos o que te impede de começar</p>
+
+            <div class="pain-points-grid">
+                <!-- Pain Point 1 -->
+                <div class="pain-point-card">
+                    <div class="pain-point-icon">⏱️</div>
+                    <h3>Eu não tenho tempo para cursos intermináveis.</h3>
+                    <p>As pessoas adultas não querem teoria solta. Querem algo prático, direto ao ponto e aplicável.
+                        Neste curso, você aprende desenvolvendo um sistema completo que realmente funciona, sem
+                        enrolação e sem meses perdidos tentando entender o básico.</p>
                 </div>
-                <div class="cta-container">
-                    <a href="#comprar" class="btn btn-primary btn-large">GARANTIR MINHA INSCRIÇÃO!</a>
-                    <p class="urgency-text"><i class="fas fa-clock"></i> Oferta por tempo limitado - Restam apenas 11 vagas</p>
+
+                <!-- Pain Point 2 -->
+                <div class="pain-point-card">
+                    <div class="pain-point-icon">❓</div>
+                    <h3>Eu tenho medo de não entender programação.</h3>
+                    <p>Muitos alunos chegam acreditando que programação não é para eles. Aqui você aprende com clareza,
+                        com exemplos concretos e com um projeto real que deixa tudo intuitivo. Nada de aulas corridas ou
+                        jargão complicado: você entende o que faz e por que faz.</p>
+                </div>
+
+                <!-- Pain Point 3 -->
+                <div class="pain-point-card">
+                    <div class="pain-point-icon">💰</div>
+                    <h3>Eu quero uma habilidade que gere renda.</h3>
+                    <p>Programar por programar não paga boletos. Por isso, o foco do curso é um sistema completo,
+                        exatamente do tipo que pequenas empresas compram. Você pode usar o mesmo projeto para conquistar
+                        freelas, montar portfólio, conseguir o primeiro emprego ou criar sua própria versão e vender
+                        para clientes.</p>
+                </div>
+
+                <!-- Pain Point 4 -->
+                <div class="pain-point-card">
+                    <div class="pain-point-icon">🏆</div>
+                    <h3>Eu preciso provar para mim mesmo que consigo.</h3>
+                    <p>Muita gente acima dos 30 acha que já passou da idade de aprender tecnologia. O curso foi criado
+                        justamente para mostrar que isso não é verdade. Você constrói um projeto inteiro e percebe que
+                        não só é possível — é prazeroso e libertador.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Vídeo de Apresentação -->
+    <!-- Video Section -->
     <section class="video-section">
         <div class="container">
-            <h2 class="section-title">CONHEÇA O PROJETO QUE VAMOS CONSTRUIR JUNTOS DURANTE O CURSO</h2>
+            <h2 class="section-title">VEJA O SISTEMA QUE VOCÊ IRÁ CONSTRUIR</h2>
+            <p class="section-subtitle">Confira uma demonstração completa do sistema de vendas em C# que você aprenderá
+                a desenvolver do zero.</p>
+
             <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/Scu6oF6tj9Y?si=FZRXPEM-fsEFd3tx" title="Apresentação do Curso" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="cta-container center">
-                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary">GARANTIR MINHA INSCRIÇÃO!</a>
+                <iframe src="https://www.youtube.com/embed/Scu6oF6tj9Y" title="Demonstração do Sistema de Vendas em C#"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
     </section>
 
-    <!-- Benefícios -->
-    <section class="benefits-section" id="beneficios">
+    <!-- Solution Section -->
+    <section class="solution">
         <div class="container">
-            <h2 class="section-title">POR QUE ESCOLHER ESTE CURSO?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h3 class="benefit-title">CURSO TOTALMENTE EM VÍDEO AULAS EM ALTA DEFINIÇÃO</h3>
-                    <p class="benefit-description">Com aulas em Alta Definição, você estuda e revê as aulas quando e onde quiser aproveitando 100% do conteúdo!</p>
+            <h2 class="section-title">Você sabe que merecia ter começado isso há anos. Mas o melhor momento para mudar
+                sua vida é sempre agora.</h2>
+            <p class="section-subtitle">Não deixe essa chance passar de novo, e garanta sua vaga!</p>
+
+            <div class="solution-box">
+                <p class="solution-text">Você sai do curso com algo que poucas pessoas iniciantes têm: um sistema
+                    completo, profissional e pronto para mostrar ao mundo.</p>
+            </div>
+
+            <div class="solution-benefits">
+                <div class="benefit">
+                    <span class="checkmark">✓</span>
+                    <p><strong>Pouco tempo?</strong> Tudo é direto, pragmático e aplicado.</p>
                 </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3 class="benefit-title">SUPORTE ESPECIALIZADO EM CADA AULA</h3>
-                    <p class="benefit-description">Todas as dúvidas serão respondidas individualmente em cada aula e sem intermediários. Além disso você terá acesso ao grupo exclusivo do curso.</p>
+                <div class="benefit">
+                    <span class="checkmark">✓</span>
+                    <p><strong>Insegurança?</strong> A didática é clara, adulta e empática.</p>
                 </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <h3 class="benefit-title">SUA SATISFAÇÃO OU SEU DINHEIRO DE VOLTA</h3>
-                    <p class="benefit-description">Você terá 7 dias para testar nossa plataforma, caso não goste devolvemos seu dinheiro!</p>
+                <div class="benefit">
+                    <span class="checkmark">✓</span>
+                    <p><strong>Quer renda?</strong> O sistema pode ser vendido ou usado para entrar no mercado.</p>
                 </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="benefit-title">TURMAS LIMITADAS PARA MELHOR ATENDIMENTO</h3>
-                    <p class="benefit-description">Turmas com vagas limitadas para aumentar a qualidade no atendimento ao aluno.</p>
+                <div class="benefit">
+                    <span class="checkmark">✓</span>
+                    <p><strong>Medo de não conseguir?</strong> Você vê resultado concreto a cada aula.</p>
                 </div>
             </div>
+
+            <button class="cta-button"
+                onclick="document.querySelector('.final-cta').scrollIntoView({behavior: 'smooth'})">Veja a Grade
+                Completa e Comece Hoje</button>
         </div>
     </section>
 
-    <!-- Mercado de Trabalho -->
-    <section class="market-section">
-        <div class="container">
-            <h2 class="section-title">TRANSFORME SUA CARREIRA <span class="highlight">com a Linguagem C#</span> mais utilizada no mundo!</h2>
-            <p class="section-subtitle">Grandes empresas confiam em C# para desenvolver sistemas robustos. A estabilidade e a segurança que C# oferece tornam-no perfeito para esses cenários, por isso as vagas oferecem altos salários.</p>
-            
-            <div class="market-stats">
-                <div class="stat-highlight">São mais de <span class="highlight">2.500 vagas</span> e o mercado não para de crescer</div>
-            </div>
-            
-            <div class="job-listings">
-                <div class="job-card">
-                    <div class="company-logo">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <div class="job-details">
-                        <h3>Desenvolvedor C#</h3>
-                        <p class="salary-range">R$ 3 mil - R$ 8 mil</p>
-                        <p class="job-location">Remoto / Presencial</p>
-                    </div>
-                    <div class="job-openings">
-                        <span>35 vagas abertas</span>
-                    </div>
-                </div>
-                <div class="job-card">
-                    <div class="company-logo">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <div class="job-details">
-                        <h3>Desenvolvedor .NET</h3>
-                        <p class="salary-range">R$ 4 mil - R$ 9 mil</p>
-                        <p class="job-location">Remoto / Presencial</p>
-                    </div>
-                    <div class="job-openings">
-                        <span>42 vagas abertas</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="cta-container center">
-                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary">GARANTIR MEU ACESSO</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Conteúdo do Curso -->
-    <section class="curriculum-section" id="conteudo">
-        <div class="container">
-            <h2 class="section-title">DO ZERO AO AVANÇADO, <span class="highlight">o que você vai aprender neste curso</span></h2>
-            <p class="section-subtitle">Neste curso, você não apenas aprenderá C#; você se tornará PROFISSIONAL na linguagem mais usada no mundo. Apto para as melhores vagas do mercado.</p>
-            
-            <div class="curriculum-grid">
-                <div class="curriculum-item">
-                    <div class="curriculum-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="curriculum-content">
-                        <h3>Módulo - Gerenciamento de Clientes</h3>
-                        <p><i class="fas fa-play-circle"></i> 19 aulas</p>
-                    </div>
-                </div>
-                <div class="curriculum-item">
-                    <div class="curriculum-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="curriculum-content">
-                        <h3>Módulo - Gerenciamento de Funcionários</h3>
-                        <p><i class="fas fa-play-circle"></i> 10 aulas</p>
-                    </div>
-                </div>
-                <div class="curriculum-item">
-                    <div class="curriculum-icon">
-                        <i class="fas fa-sitemap"></i>
-                    </div>
-                    <div class="curriculum-content">
-                        <h3>Módulo - Gerenciamento de Fornecedores</h3>
-                        <p><i class="fas fa-play-circle"></i> 07 aulas</p>
-                    </div>
-                </div>
-                <div class="curriculum-item">
-                    <div class="curriculum-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <div class="curriculum-content">
-                        <h3>Módulo - Gerenciamento de Produtos</h3>
-                        <p><i class="fas fa-play-circle"></i> 09 aulas</p>
-                    </div>
-                </div>
-                <div class="curriculum-item">
-                    <div class="curriculum-icon">
-                        <i class="fas fa-cubes"></i>
-                    </div>
-                    <div class="curriculum-content">
-                        <h3>Módulo de Autenticação</h3>
-                        <p><i class="fas fa-play-circle"></i> 08 aulas</p>
-                    </div>
-                </div>
-                <div class="curriculum-item">
-                    <div class="curriculum-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="curriculum-content">
-                        <h3>Módulo - Vendas</h3>
-                        <p><i class="fas fa-play-circle"></i> 27 aulas</p>
-                    </div>
-                </div>
-               
-            </div>
-            
-            <div class="curriculum-toggle">
-                <button class="btn btn-secondary" id="toggleCurriculum">VER GRADE CURRICULAR COMPLETA</button>
-            </div>
-            
-            <div class="cta-container center">
-                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary btn-large">GARANTIR MEU ACESSO</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Depoimentos -->
+    <!-- Testimonials Section -->
     <section class="testimonials-section">
         <div class="container">
-            <h2 class="section-title">ALUNOS QUE TRANSFORMARAM SUAS VIDAS COM O CURSO DE C#</h2>
-            
+            <h2 class="section-title">VEJA O QUE NOSSOS ALUNOS FALAM</h2>
+            <p class="section-subtitle">Pessoas com mais de 30 anos que transformaram suas carreiras com este método.
+            </p>
+
             <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
                 <div class="testimonial-card">
                     <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://ui-avatars.com/api/?name=Márcio+Roberto&background=0D8ABC&color=fff" alt="Márcio Roberto">
-                        </div>
+                        <div class="testimonial-avatar">👨‍💼</div>
                         <div class="testimonial-info">
-                            <h3>Márcio Roberto Rosa D.</h3>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="testimonial-date">há 2 meses</p>
+                            <h3>Márcio Roberto, 34 anos</h3>
+                            <p class="testimonial-role">Aluno</p>
                         </div>
                     </div>
-                    <div class="testimonial-content">
-                        <p>O instrutor tem excelente didática e simplifica os comandos, o que facilita no aprendizado. Parabéns!!!</p>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://ui-avatars.com/api/?name=Hudney+Gomes&background=0D8ABC&color=fff" alt="Hudney Gomes">
-                        </div>
-                        <div class="testimonial-info">
-                            <h3>Hudney Gomes N.</h3>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="testimonial-date">há 2 meses</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <p>Curso é excelente, para mim foi enriquecedor de mais. Agradeço ao professor Caio. Até a última aula, aula 80, não tinha sido feita a parte para alterar o usuário, acredito que terá novas aulas porque no último vídeo ele encerra a aula para não ficar longa e de despede até falando até a próxima aula.</p>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://ui-avatars.com/api/?name=Igor+Ribeiro&background=0D8ABC&color=fff" alt="Igor Ribeiro">
-                        </div>
-                        <div class="testimonial-info">
-                            <h3>Igor Ribeiro D.</h3>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="testimonial-date">há 3 semanas</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <p>Um ótimo curso para quem já tem uma noção básica sobre a linguagem C# e SQL. Foi muito satisfatório um curso focado mais na parte prática, o professor possui uma ótima didática e sabe explicar muito bem o que está sendo feito.</p>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://ui-avatars.com/api/?name=Carlos+Roberto&background=0D8ABC&color=fff" alt="Carlos Roberto">
-                        </div>
-                        <div class="testimonial-info">
-                            <h3>Carlos Roberto B.</h3>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="testimonial-date">há 5 meses</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <p>O conteúdo e didática do Professor é excelente.</p>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://ui-avatars.com/api/?name=Marcelo+C&background=0D8ABC&color=fff" alt="Marcelo C">
-                        </div>
-                        <div class="testimonial-info">
-                            <h3>Marcelo C.</h3>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="testimonial-date">há um mês</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <p>Excelente curso, ministrado por um excelente professor!</p>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://ui-avatars.com/api/?name=Fábio+C&background=0D8ABC&color=fff" alt="Fábio C">
-                        </div>
-                        <div class="testimonial-info">
-                            <h3>Fábio C.</h3>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="testimonial-date">há 8 meses</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <p>Gostei bastante do conteúdo, mesmo não tendo o módulo de nfe de compra e de saída. Mas eu recomendo demais, o Caio tem uma boa didática o curso é bem estruturado e bem explicado, o professor dá suporte pelo telegram, responde muito rápido as dúvidas.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sobre o Professor -->
-    <section class="instructor-section">
-        <div class="container">
-            <h2 class="section-title">CONHEÇA SEU <span class="highlight">PROFESSOR</span> nessa jornada de aprendizado</h2>
-            
-            <div class="instructor-profile">
-                <div class="instructor-image">
-                    <img src="./assets/perfil.jpeg" alt="Prof. Caio Malheiros">
-                </div>
-                <div class="instructor-info">
-                    <h3>Prof. Caio Malheiros</h3>
-                    <p class="instructor-title">Desenvolvedor & Instrutor</p>
-                    <p class="instructor-bio">
-                        Caio Malheiros é Desenvolvedor Full Stack com mais de 8 anos de experiência. Especialista em .NET e C#, 
-                        já desenvolveu dezenas de sistemas e aplicações para empresas de diversos segmentos. 
-                        Sua paixão pelo ensino o levou a criar cursos que já impactaram mais de 10 mil alunos, 
-                        sempre com foco em conteúdo prático e aplicável ao mercado de trabalho.
+                    <p class="testimonial-text">
+                        O instrutor tem excelente didática e simplifica os comandos, o que facilita no aprendizado.
+                        Parabéns!!!
                     </p>
-                    <div class="instructor-stats">
-                        <div class="stat">
-                            <span class="stat-number">3.752+</span>
-                            <span class="stat-label">Alunos</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">8+</span>
-                            <span class="stat-label">Anos de Experiência</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">4.9/5</span>
-                            <span class="stat-label">Avaliação Média</span>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Fernanda, 38 anos</h3>
+                            <p class="testimonial-role">Mãe e Empreendedora</p>
                         </div>
                     </div>
+                    <p class="testimonial-text">
+                        "Sempre tive medo de que programação não era para mim. A didática do Caio é tão clara que até
+                        meu filho de 12 anos entendeu alguns conceitos! Consegui criar um sistema para meu pequeno
+                        negócio e já estou recebendo propostas de outras empresas. Mudou minha vida!"
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
                 </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨‍🔧</div>
+                        <div class="testimonial-info">
+                            <h3>Carlos, 42 anos</h3>
+                            <p class="testimonial-role">Ex-Gerente de Loja</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Estava desempregado aos 42 anos e achava que era o fim. Fiz esse curso por desespero, mas virou
+                        a melhor decisão da minha vida. Não só consegui emprego como desenvolvedor junior, como estou
+                        ganhando 40% a mais do que ganhava antes. Nunca é tarde para recomeçar!"
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Marcos, 42 anos</h3>
+                            <p class="testimonial-role">Analista Administrativo</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Passei a vida achando que programação era difícil demais. A didática do Caio mudou tudo. Em
+                        poucas semanas consegui montar meu primeiro sistema e automatizei tarefas que eu fazia
+                        manualmente há ANOS no trabalho. Foi libertador!"
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Patrícia, 36 anos</h3>
+                            <p class="testimonial-role">Profissional em Transição de Carreira</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "O Caio explica de um jeito que a gente entende de verdade. Pela primeira vez senti que
+                        programação era possível para mim. Hoje já tenho meu portfólio pronto e mandei para três
+                        empresas. Me sinto outra pessoa."
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Eduardo, 33 anos</h3>
+                            <p class="testimonial-role">Motorista de Aplicativo</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Sempre quis entrar na área de TI mas não sabia por onde começar. O curso do Caio foi a ponte
+                        que eu precisava. A didática dele é surreal. Hoje fiz meu primeiro freela usando o sistema que
+                        aprendi no curso!"
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Renata, 45 anos</h3>
+                            <p class="testimonial-role">Assistente Financeira</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "O Caio tem uma paciência e uma clareza que nunca vi em professor nenhum. Aprendi a criar telas,
+                        banco de dados, e entender como tudo se conecta. Hoje uso o sistema que desenvolvi diariamente
+                        no meu trabalho. Nunca imaginei isso."
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Fernando, 39 anos</h3>
+                            <p class="testimonial-role">Microempreendedor</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Com o que aprendi no curso já consegui desenvolver um sistema simples para minha loja. Parei de
+                        depender de planilhas confusas e ainda recebi propostas de dois amigos comerciantes. Cada aula
+                        do Caio vale ouro!"
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Sandra, 52 anos</h3>
+                            <p class="testimonial-role">Professora Aposentada</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Achei que estava velha demais para aprender programação. O Caio me provou o contrário. Ele
+                        explica com calma, mostra passo a passo e nunca deixa a gente se sentir perdida. Hoje tenho
+                        orgulho do sistema que construí."
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Ricardo, 35 anos</h3>
+                            <p class="testimonial-role">Atendente de Suporte</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "O curso do Caio mudou minha visão de carreira. Finalmente entendi de verdade como criar um
+                        sistema completo. Já consegui uma entrevista para vaga de desenvolvedor júnior só mostrando meu
+                        projeto do curso."
+                    </p>
+                    <div class="testimonial-rating">★★★★☆</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Juliana, 40 anos</h3>
+                            <p class="testimonial-role">Administradora</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Nunca gostei de cursos online porque sempre me sentia perdida. Com o Caio foi diferente. A
+                        forma que ele ensina faz tudo parecer simples. Me sinto muito mais confiante e já estou
+                        planejando meu primeiro projeto sozinho."
+                    </p>
+                    <div class="testimonial-rating">★★★★☆</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Alexandre, 47 anos</h3>
+                            <p class="testimonial-role">Supervisor Operacional</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Entrei no curso achando que não ia entender nada. Mas o Caio explica como ninguém. Hoje sei
+                        criar telas, banco e até entender erros no código. Me sinto finalmente começando uma nova fase
+                        da minha vida."
+                    </p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Carolina, 34 anos</h3>
+                            <p class="testimonial-role">Freelancer</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "O Caio não só ensina programação, ele ensina confiança. Depois do curso consegui pegar dois
+                        freelas pequenos usando exatamente o sistema que aprendi com ele. Esse curso literalmente mudou
+                        minha forma de trabalhar."
+                    </p>
+                    <div class="testimonial-rating">★★★★☆</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Marta, 50 anos</h3>
+                            <p class="testimonial-role">Recepcionista</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Já tentei aprender programação outras vezes e sempre travava. Com o Caio foi diferente. Só não
+                        dou 5 estrelas porque algumas partes eu precisei rever mais de uma vez, mas no fim consegui
+                        montar o sistema inteiro!"
+                    </p>
+                    <div class="testimonial-rating">★★★★☆</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Henrique, 39 anos</h3>
+                            <p class="testimonial-role">Supervisor de Estoque</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Curso muito bom! O jeito que o Caio explica faz tudo parecer mais simples. Já estou aplicando o
+                        que aprendi no trabalho. Só queria que tivesse uma parte avançada também, mas isso não tira o
+                        brilho do conteúdo."
+                    </p>
+                    <div class="testimonial-rating">★★★★☆</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-info">
+                            <h3>Luciana, 46 anos</h3>
+                            <p class="testimonial-role">Microempreendedora</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Gostei demais! Consegui criar um sistema que facilitou meu controle de vendas. O Caio explica
+                        tudo com muita naturalidade. Só dou 4 estrelas porque queria que tivesse mais vídeos curtos além
+                        dos principais."
+                    </p>
+                    <div class="testimonial-rating">★★★★☆</div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Bônus Exclusivos -->
-    <section class="bonus-section">
+    <!-- Curriculum Section -->
+    <section class="curriculum">
         <div class="container">
-            <h2 class="section-title"><span class="highlight">BÔNUS EXCLUSIVOS</span> apenas para os 50 primeiros alunos nessa oferta</h2>
-            <p class="bonus-counter">Garanta já! Restam apenas <span class="highlight">11 vagas</span> com todos os bônus</p>
+            <h2 class="section-title">DO ZERO AO AVANÇADO, o que você aprenderá neste curso</h2>
+            <p class="section-subtitle">Neste curso, você não apenas aprenderá C#; você se tornará PROFISSIONAL na
+                linguagem mais usada no mundo. Conheça os tópicos que é abordado</p>
+
+            <div class="curriculum-container">
+                <div class="curriculum-grid">
+                    <div class="curriculum-item">
+                        <div class="curriculum-icon">📚</div>
+                        <h3>Módulo 1: Fundamentos de C#</h3>
+                        <p>Variáveis, tipos de dados, operadores, estruturas de controle e funções.</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <div class="curriculum-icon">🏗️</div>
+                        <h3>Módulo 2: Programação Orientada a Objetos</h3>
+                        <p>Classes, objetos, herança, polimorfismo e encapsulamento.</p>
+                    </div>
+                    <div class="curriculum-item">
+                        <div class="curriculum-icon">🗄️</div>
+                        <h3>Módulo 3: Banco de Dados com MySQL</h3>
+                        <p>Criação de tabelas, manipulação de registros, relacionamentos e consultas.</p>
+                    </div>
+                    
+                    <div class="curriculum-item">
+                        <div class="curriculum-icon">🛒</div>
+                        <h3>Módulo 4: Construindo o Sistema de Vendas</h3>
+                        <p>Telas de login, cadastro de clientes, funcionários, produtos, fornecedores e controle de
+                            vendas</p>
+                    </div>
+
             
-            <div class="bonus-grid">
-                <div class="bonus-card">
-                    <div class="bonus-icon">
-                        <i class="fas fa-book"></i>
+
+                    
+                    <!-- <div class="curriculum-item">
+                        <div class="curriculum-icon">🚀</div>
+                        <h3>Módulo 5: Deploy e Profissionalismo (em breve)</h3>
+                        <p>Empacotamento, distribuição e boas práticas de código profissional.</p>
                     </div>
-                    <h3>Criando Banco de Dados com MYSQL</h3>
-                    <p>No curso você vai aprender SQL de um jeito direto e aplicável, desenvolvendo um projeto real: o banco de dados de um sistema de vendas.ais de 20 h</p>
+                    <div class="curriculum-item">
+                        <div class="curriculum-icon">💡</div>
+                        <h3>Módulo 6: Bônus e Extras</h3>
+                        <p>Dicas avançadas, troubleshooting e suporte contínuo.</p>
+                    </div> -->
                 </div>
-                <div class="bonus-card">
-                    <div class="bonus-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Comunidade Exclusiva</h3>
-                    <p>Acesso ao grupo exclusivo com outros alunos e suporte direto do professor para tirar dúvidas.</p>
-                </div>
-                <div class="bonus-card">
-                    <div class="bonus-icon">
-                        <i class="fas fa-file-code"></i>
-                    </div>
-                    <h3>Templates Prontos para Projetos em C#</h3>
-                    <p>Economize tempo com templates prontos para iniciar seus projetos mais rapidamente.</p>
-                </div>
-            </div>
-            
-            <div class="cta-container center">
-                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary btn-large">GARANTIR MINHA INSCRIÇÃO COM BÔNUS!</a>
             </div>
         </div>
     </section>
 
-    <!-- Garantia -->
-    <section class="guarantee-section" id="garantia">
+
+
+    <!-- Instructor Section -->
+    <section class="instructor">
         <div class="container">
-            <div class="guarantee-content">
-                <div class="guarantee-icon">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png" alt="Garantia de 7 dias">
+            <h2 class="section-title">CONHEÇA SEU PROFESSOR</h2>
+            <p class="section-subtitle">Nessa jornada de aprendizado</p>
+
+            <div class="instructor-card">
+                <div class="instructor-image">
+                    <img src="./assets/perfil.jpg" alt="Prof. Caio Malheiros">
                 </div>
-                <div class="guarantee-text">
-                    <h2 class="section-title">GARANTIA INCONDICIONAL DE 7 DIAS</h2>
-                    <p>Se você não gostar do curso ou não perceber uma evolução clara nos primeiros 7 dias, devolvemos 100% do seu dinheiro. Sem letras miúdas!</p>
-                    <div class="security-badges">
-                        <span><i class="fas fa-lock"></i> Pagamento Seguro</span>
-                        <span><i class="fas fa-shield-alt"></i> Dados Protegidos</span>
-                        <span><i class="fas fa-credit-card"></i> Diversas Formas de Pagamento</span>
-                    </div>
+                <h3>Prof. Caio Malheiros</h3>
+                <p class="instructor-role">Desenvolvedor Full Stack & Instrutor</p>
+                <p class="instructor-bio">
+                    Caio Malheiros é Desenvolvedor Full Stack e um dos nomes mais respeitados no ensino de programação
+                    para adultos iniciantes. Com 17 anos de experiência em sala de aula, ele se especializou em ensinar
+                    pessoas acima dos 30 anos que sempre acharam que “não era mais tempo de começar”. Hoje, atua como
+                    professor nos cursos técnicos do Centro Paula Souza e no SENAI de Santana de Parnaíba, instituições
+                    reconhecidas pela formação de profissionais para o mercado.
+                    Ao longo da carreira, desenvolveu dezenas de sistemas reais em .NET e C#, levando para suas aulas
+                    exatamente o que o mercado exige. Seus cursos já impactaram mais de 10 mil alunos — muitos deles
+                    conquistando o primeiro emprego, realizando o primeiro freela ou finalmente criando seu próprio
+                    sistema.
+                    Quem aprende com Caio não recebe apenas aulas: recebe orientação, clareza e um método comprovado que
+                    transforma iniciantes inseguros em profissionais confiantes.
+                </p>
+
+                <div class="profile-links">
+                    <a class="social-link" href="https://www.linkedin.com/in/caiomduarte-desenvolvedor-java-web-flutter/" target="_blank"
+                        aria-label="LinkedIn">
+                        <!-- LinkedIn SVG -->
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-14h4v2a4 4 0 014-2zM2 9h4v14H2z"
+                                stroke="currentColor" stroke-width="0.6" fill="currentColor" />
+                            <circle cx="4" cy="4" r="1.5" fill="currentColor" />
+                        </svg>
+                        LinkedIn
+                    </a>
+
+                    <a class="social-link" href="https://www.instagram.com/profcaiomalheiros/" target="_blank"
+                        aria-label="Instagram">
+                        <!-- Instagram SVG -->
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.2" />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2" fill="none" />
+                            <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+                        </svg>
+                        @profcaiomalheiros
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="faq-section">
+    <!-- FAQ Section -->
+    <section class="faq">
         <div class="container">
             <h2 class="section-title">PERGUNTAS FREQUENTES</h2>
-            
+
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>O curso é adequado para iniciantes?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sim, este curso é voltado para pessoas que estão iniciando os estudos em programação. Começamos do zero e avançamos gradualmente.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Posso parcelar o pagamento do curso?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sim, é possível realizar a compra do curso parcelado no cartão de crédito em até 12x.</p>
+                    <button class="faq-question" onclick="toggleFAQ(0)">
+                        <span>O curso é adequado para iniciantes?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer" id="faq-0">
+                        <p>Sim, totalmente. O curso foi criado especificamente para quem está começando do zero. Você
+                            aprenderá C# desde os conceitos fundamentais até a criação de um sistema completo e
+                            profissional.</p>
                     </div>
                 </div>
-                
+
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Há alguma política de reembolso?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sim, dentro de 7 dias após a compra do curso, será possível solicitar o reembolso integral sem questionamentos.</p>
+                    <button class="faq-question" onclick="toggleFAQ(1)">
+                        <span>Posso parcelar o pagamento do curso?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer" id="faq-1">
+                        <p>Sim, oferecemos opções de parcelamento em até 12x sem juros no cartão de crédito. Você pode
+                            escolher a forma que melhor se adequa ao seu orçamento.</p>
                     </div>
                 </div>
-                
+
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Quais são as opções de pagamento disponíveis?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Aceitamos cartões de crédito de todas as bandeiras, boleto bancário e PIX.</p>
+                    <button class="faq-question" onclick="toggleFAQ(2)">
+                        <span>Há alguma política de reembolso?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer" id="faq-2">
+                        <p>Sim, oferecemos uma garantia incondicional de 7 dias. Se você não gostar do curso ou não
+                            perceber uma evolução clara nos primeiros 7 dias, devolvemos 100% do seu dinheiro.</p>
                     </div>
                 </div>
-                
+
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>O material do curso está atualizado?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sim, todas as nossas aulas estão de acordo com a versão mais recente do C# e .NET.</p>
+                    <button class="faq-question" onclick="toggleFAQ(3)">
+                        <span>Quais são as opções de pagamento disponíveis?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer" id="faq-3">
+                        <p>Aceitamos cartão de crédito, débito, PIX e boleto bancário. Todas as transações são seguras e
+                            protegidas.</p>
                     </div>
                 </div>
-                
+
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Após o curso receberei certificado?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sim, após o término do curso, o certificado ficará disponível para download na plataforma.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Após a compra, o acesso ao curso é vitalício?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Sim, uma vez adquirido, o aluno poderá acessar o curso sempre que quiser, sem restrições de tempo.</p>
+                    <button class="faq-question" onclick="toggleFAQ(4)">
+                        <span>O material do curso está atualizado?</span>
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer" id="faq-4">
+                        <p>Sim, o material é atualizado regularmente para acompanhar as mudanças na linguagem C# e nas
+                            melhores práticas do mercado.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Chamada Final -->
-    <section class="final-cta-section">
+    <!-- Guarantee Section -->
+    <section class="guarantee">
         <div class="container">
-            <h2 class="section-title">APRENDA COMO SE FAZ TELA DE LOGIN, TELA DE SPLASH, TELA PARA RECUPERAR SENHA E MUITO MAIS!</h2>
-            
-            <div class="cta-container center">
-                <a href="https://pay.hotmart.com/C43442771B?bid=1744140280903" target="_blank" class="btn btn-primary btn-xl" id="comprar">GARANTIR MINHA INSCRIÇÃO AGORA!</a>
-                <p class="urgency-text"><i class="fas fa-exclamation-circle"></i> Oferta por tempo limitado - Preço aumentará em breve</p>
+            <h2 class="section-title">GARANTIA INCONDICIONAL DE 7 DIAS</h2>
+            <p class="guarantee-text">Se você não gostar do curso ou não perceber uma evolução clara nos primeiros 7
+                dias, devolvemos 100% do seu dinheiro. Sem letras miúdas!</p>
+
+            <div class="guarantee-badges">
+                <div class="badge">✓ Pagamento Seguro</div>
+                <div class="badge">✓ Dados Protegidos</div>
+                <div class="badge">✓ Diversas Formas de Pagamento</div>
             </div>
         </div>
     </section>
 
-    <!-- Contato -->
-    <section class="contact-section" id="contato">
+    <!-- Final CTA Section -->
+    <section class="final-cta">
         <div class="container">
-            <h2 class="section-title">PRECISA DE AJUDA?</h2>
-            <p class="contact-subtitle">Está com dúvidas ou precisa de ajuda? Entre em contato conosco!</p>
-            
-            <div class="contact-methods">
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <p>11974459689 (WhatsApp)</p>
-                </div>
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <p>md.caio@yahoo.com.br</p>
-                </div>
-            </div>
+            <h2 class="section-title">Pronto para transformar sua carreira?</h2>
+            <p class="final-cta-text">Oferta por tempo limitado - Preço aumentará em breve</p>
+            <button class="cta-button"
+                onclick="window.open('https://pay.hotmart.com/C43442771B?bid=1744140280903', '_blank')">GARANTIR MINHA
+                INSCRIÇÃO AGORA!</button>
         </div>
     </section>
 
-    <!-- Rodapé -->
+    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>Prof. Caio Malheiros</h3>
-                    <p>Transformando vidas através da programação</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Links Úteis</h4>
-                    <ul>
-                        <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#contato">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="footer-social">
-                    <h4>Redes Sociais</h4>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Prof. Caio Malheiros. Todos os direitos reservados.</p>
-            </div>
+        <div class="footer-content">
+            <a href="#">Termos de Uso</a>
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Contato</a>
         </div>
+        <p class="footer-copyright">&copy; 2025 Prof. Caio Malheiros. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // ============================================
+        // FAQ TOGGLE FUNCTIONALITY
+        // ============================================
+
+        function toggleFAQ(index) {
+            const answer = document.getElementById(`faq-${index}`);
+            const buttons = document.querySelectorAll('.faq-question');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach((item, i) => {
+                if (i !== index) {
+                    item.classList.remove('active');
+                    buttons[i].classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            answer.classList.toggle('active');
+            buttons[index].classList.toggle('active');
+        }
+
+        // ============================================
+        // SMOOTH SCROLL BEHAVIOR
+        // ============================================
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // HEADER SCROLL EFFECT
+        // ============================================
+
+        const header = document.querySelector('.header');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > 100) {
+                header.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // ============================================
+        // ANIMATION ON SCROLL
+        // ============================================
+
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe pain point cards and testimonial cards
+            document.querySelectorAll('.pain-point-card, .testimonial-card, .curriculum-item').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', observeElements);
+
+        console.log('Landing Page Loaded Successfully!');
+        console.log('All interactive features are active.');
+    </script>
 </body>
+
 </html>
