@@ -440,33 +440,17 @@
     color: var(--muted);
     font-family: 'JetBrains Mono', monospace;
   }
-  .code-nocopy {
-    font-size: 10px;
-    color: #475569;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
   pre {
     background: var(--code-bg);
     padding: 20px 20px;
     overflow-x: auto;
     margin: 0;
-    /* ANTI-COPY */
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
   }
   pre code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     line-height: 1.8;
     color: #94a3b8;
-    /* ANTI-COPY */
-    user-select: none;
-    -webkit-user-select: none;
-    pointer-events: none;
   }
 
   /* Syntax highlight */
@@ -478,29 +462,7 @@
   .comp { color: #89ddff; }
   .prop { color: #f07178; }
 
-  /* Copy blocker overlay */
-  .copy-blocker {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
-    cursor: not-allowed;
-  }
-  .copy-blocker:active::after {
-    content: '⛔ Digite o código — não copie!';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(15,23,42,.95);
-    color: #f87171;
-    font-family: 'Sora', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 12px 24px;
-    border-radius: 10px;
-    border: 1px solid #ef4444;
-    white-space: nowrap;
-    pointer-events: none;
-  }
+  /* Copy blocker overlay - REMOVED */
 
   /* ── RUN SECTION ── */
   .run-box {
@@ -816,13 +778,9 @@
               <div class="code-header">
                 <div class="code-dots"><span></span><span></span><span></span></div>
                 <span class="code-label">terminal</span>
-                <span class="code-nocopy">🔒 somente leitura</span>
               </div>
-              <div style="position:relative">
-                <div class="copy-blocker" oncontextmenu="return false"></div>
-                <pre><code><span class="fn">npx</span> create-expo-app AdivinhaNumero <span class="str">--template blank</span>
+              <pre><code><span class="fn">npx</span> create-expo-app AdivinhaNumero <span class="str">--template blank</span>
 <span class="fn">cd</span> AdivinhaNumero</code></pre>
-              </div>
             </div>
             <div class="callout blue">
               <div class="callout-icon">📦</div>
@@ -843,12 +801,8 @@
               <div class="code-header">
                 <div class="code-dots"><span></span><span></span><span></span></div>
                 <span class="code-label">terminal</span>
-                <span class="code-nocopy">🔒 somente leitura</span>
               </div>
-              <div style="position:relative">
-                <div class="copy-blocker" oncontextmenu="return false"></div>
-                <pre><code><span class="fn">npx</span> expo install react-dom react-native-web @expo/metro-runtime</code></pre>
-              </div>
+              <pre><code><span class="fn">npx</span> expo install react-dom react-native-web @expo/metro-runtime</code></pre>
             </div>
             <div class="callout orange">
               <div class="callout-icon">🌐</div>
@@ -883,11 +837,8 @@
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-label">App.js</span>
-          <span class="code-nocopy">🔒 somente leitura</span>
         </div>
-        <div style="position:relative">
-          <div class="copy-blocker" oncontextmenu="return false"></div>
-          <pre><code><span class="kw">import</span> React, { useState } <span class="kw">from</span> <span class="str">'react'</span>;
+        <pre><code><span class="kw">import</span> React, { useState } <span class="kw">from</span> <span class="str">'react'</span>;
 <span class="kw">import</span> {
   <span class="comp">View</span>,
   <span class="comp">Text</span>,
@@ -897,7 +848,6 @@
   <span class="comp">SafeAreaView</span>,
   <span class="comp">Alert</span>,
 } <span class="kw">from</span> <span class="str">'react-native'</span>;</code></pre>
-        </div>
       </div>
       <div class="callout purple">
         <div class="callout-icon">📌</div>
@@ -913,11 +863,8 @@
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-label">App.js</span>
-          <span class="code-nocopy">🔒 somente leitura</span>
         </div>
-        <div style="position:relative">
-          <div class="copy-blocker" oncontextmenu="return false"></div>
-          <pre><code><span class="kw">export default function</span> <span class="fn">App</span>() {
+        <pre><code><span class="kw">export default function</span> <span class="fn">App</span>() {
 
   <span class="cmt">// useState(valorInicial) → [valorAtual, setValor]</span>
   <span class="kw">const</span> [numeroSecreto] = <span class="fn">useState</span>(Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * <span class="num">11</span>));
@@ -925,7 +872,6 @@
   <span class="kw">const</span> [dica,       setDica]        = <span class="fn">useState</span>(<span class="str">''</span>);
   <span class="kw">const</span> [tentativas, setTentativas]  = <span class="fn">useState</span>(<span class="num">0</span>);
   <span class="kw">const</span> [ganhou,     setGanhou]      = <span class="fn">useState</span>(<span class="num">false</span>);</code></pre>
-        </div>
       </div>
       <p>Cada estado guarda um valor diferente do jogo:</p>
       <ul>
@@ -942,11 +888,8 @@
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-label">App.js</span>
-          <span class="code-nocopy">🔒 somente leitura</span>
         </div>
-        <div style="position:relative">
-          <div class="copy-blocker" oncontextmenu="return false"></div>
-          <pre><code>  <span class="kw">function</span> <span class="fn">adivinhar</span>() {
+        <pre><code>  <span class="kw">function</span> <span class="fn">adivinhar</span>() {
     <span class="kw">const</span> numero = <span class="fn">parseInt</span>(tentativa);
 
     <span class="cmt">// Valida se o usuário digitou um número válido</span>
@@ -968,7 +911,6 @@
       <span class="fn">setDica</span>(<span class="str">'Tente um número MENOR!'</span>);
     }
   }</code></pre>
-        </div>
       </div>
 
       <h3>Parte 4 — O JSX (interface visual)</h3>
@@ -977,11 +919,8 @@
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-label">App.js</span>
-          <span class="code-nocopy">🔒 somente leitura</span>
         </div>
-        <div style="position:relative">
-          <div class="copy-blocker" oncontextmenu="return false"></div>
-          <pre><code>  <span class="kw">return</span> (
+        <pre><code>  <span class="kw">return</span> (
     <span class="comp">&lt;SafeAreaView</span> <span class="prop">style</span>={estilos.safeArea}<span class="comp">&gt;</span>
       <span class="comp">&lt;View</span> <span class="prop">style</span>={estilos.container}<span class="comp">&gt;</span>
 
@@ -1022,7 +961,6 @@
     <span class="comp">&lt;/SafeAreaView&gt;</span>
   );
 }</code></pre>
-        </div>
       </div>
 
       <h3>Parte 5 — Os Estilos</h3>
@@ -1031,11 +969,8 @@
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-label">App.js</span>
-          <span class="code-nocopy">🔒 somente leitura</span>
         </div>
-        <div style="position:relative">
-          <div class="copy-blocker" oncontextmenu="return false"></div>
-          <pre><code><span class="kw">const</span> estilos = StyleSheet.<span class="fn">create</span>({
+        <pre><code><span class="kw">const</span> estilos = StyleSheet.<span class="fn">create</span>({
 
   safeArea: {
     <span class="prop">flex</span>: <span class="num">1</span>,
@@ -1096,7 +1031,6 @@
   },
 
 });</code></pre>
-        </div>
       </div>
     </div>
 
@@ -1111,11 +1045,8 @@
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-label">App.js — versão completa</span>
-          <span class="code-nocopy">🔒 somente leitura</span>
         </div>
-        <div style="position:relative">
-          <div class="copy-blocker" oncontextmenu="return false"></div>
-          <pre><code><span class="kw">import</span> React, { useState } <span class="kw">from</span> <span class="str">'react'</span>;
+        <pre><code><span class="kw">import</span> React, { useState } <span class="kw">from</span> <span class="str">'react'</span>;
 <span class="kw">import</span> {
   View, Text, TouchableOpacity, TextInput,
   StyleSheet, SafeAreaView, Alert,
@@ -1194,7 +1125,6 @@
                 <span class="prop">justifyContent</span>: <span class="str">'center'</span>, <span class="prop">marginTop</span>: <span class="num">16</span> },
   botaoTexto: { <span class="prop">color</span>: <span class="str">'#fff'</span>, <span class="prop">fontSize</span>: <span class="num">18</span>, <span class="prop">fontWeight</span>: <span class="str">'bold'</span> },
 });</code></pre>
-        </div>
       </div>
     </div>
 
@@ -1261,12 +1191,8 @@
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
           <span class="code-label">terminal</span>
-          <span class="code-nocopy">🔒 somente leitura</span>
         </div>
-        <div style="position:relative">
-          <div class="copy-blocker" oncontextmenu="return false"></div>
-          <pre><code><span class="fn">npx</span> expo start</code></pre>
-        </div>
+        <pre><code><span class="fn">npx</span> expo start</code></pre>
       </div>
 
       <p>O terminal vai exibir um menu de opções. Pressione a tecla:</p>
@@ -1319,55 +1245,6 @@
   }, { threshold: 0.3 });
   sections.forEach(s => observer.observe(s));
 
-  // Block ALL copy methods on code blocks
-  document.addEventListener('copy', e => {
-    const sel = window.getSelection();
-    if (!sel || sel.isCollapsed) return;
-    const node = sel.anchorNode;
-    let el = node.nodeType === 3 ? node.parentElement : node;
-    while (el) {
-      if (el.tagName === 'PRE' || el.classList?.contains('code-block')) {
-        e.preventDefault();
-        e.clipboardData.setData('text/plain', '⛔ Digite o código — não copie!');
-        showToast();
-        return;
-      }
-      el = el.parentElement;
-    }
-  });
-
-  document.addEventListener('keydown', e => {
-    const isCopy = (e.ctrlKey || e.metaKey) && e.key === 'c';
-    const isCutAll = (e.ctrlKey || e.metaKey) && e.key === 'a';
-    if (!isCopy && !isCutAll) return;
-    const sel = window.getSelection();
-    if (!sel || sel.isCollapsed) return;
-    const node = sel.anchorNode;
-    let el = node?.nodeType === 3 ? node.parentElement : node;
-    while (el) {
-      if (el.tagName === 'PRE' || el.classList?.contains('code-block')) {
-        e.preventDefault();
-        if (isCopy) showToast();
-        return;
-      }
-      el = el.parentElement;
-    }
-  });
-
-  function showToast() {
-    let t = document.getElementById('toast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'toast';
-      t.style.cssText = `
-        position:fixed; bottom:32px; left:50%; transform:translateX(-50%);
-        background:#0f172a; color:#f87171; border:1px solid #ef4444;
-        font-family:'Sora',sans-serif; font-size:14px; font-weight:700;
-        padding:12px 28px; border-radius:12px; z-index:9999;
-        transition:opacity .3s;
-      `;
-      document.body.appendChild(t);
-    }
     t.textContent = '⛔ Digite o código — não copie!';
     t.style.opacity = '1';
     clearTimeout(t._timeout);
