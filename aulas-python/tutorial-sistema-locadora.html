@@ -1,0 +1,608 @@
+<!--
+=========================================
+TUTORIAL PYTHON - SISTEMA DE LOCADORA
+=========================================
+RECURSOS:
+✅ Tutorial completo
+✅ Código completo no final
+✅ Bloqueio de CTRL+C
+✅ Bloqueio de CTRL+V
+✅ Bloqueio botão direito
+✅ Bloqueio seleção de texto
+=========================================
+-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tutorial Python - Sistema de Locadora</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#0f172a;
+    color:#f8fafc;
+    line-height:1.8;
+
+    user-select:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:40px 0;
+}
+
+header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+header h1{
+    font-size:3rem;
+    color:#38bdf8;
+}
+
+header p{
+    color:#cbd5e1;
+}
+
+.card{
+    background:#1e293b;
+    border:1px solid #334155;
+    border-radius:18px;
+    padding:35px;
+    margin-bottom:35px;
+}
+
+h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+h3{
+    color:#facc15;
+    margin-top:20px;
+}
+
+p{
+    margin-bottom:15px;
+    color:#e2e8f0;
+}
+
+ul{
+    padding-left:20px;
+}
+
+li{
+    margin-bottom:10px;
+}
+
+.badge{
+    display:inline-block;
+    background:#38bdf8;
+    color:#0f172a;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:.9rem;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.code{
+    background:#020617;
+    border-left:5px solid #38bdf8;
+    padding:20px;
+    border-radius:12px;
+    overflow:auto;
+    margin-top:20px;
+}
+
+pre{
+    color:#67e8f9;
+    white-space:pre-wrap;
+}
+
+.destaque{
+    background:#082f49;
+    border:1px solid #0ea5e9;
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
+}
+
+footer{
+    text-align:center;
+    margin-top:50px;
+    color:#94a3b8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<h1>🎬 Sistema de Locadora em Python</h1>
+
+<p>
+Projeto completo utilizando funções, listas, dicionários e menus.
+</p>
+
+</header>
+
+<div class="card">
+
+<span class="badge">INTRODUÇÃO</span>
+
+<h2>📌 O que vamos construir?</h2>
+
+<p>
+Neste projeto vamos desenvolver um sistema completo de locadora utilizando Python puro.
+</p>
+
+<ul>
+<li>✅ Cadastro de filmes</li>
+<li>✅ Busca de filmes</li>
+<li>✅ Aluguel</li>
+<li>✅ Devolução</li>
+<li>✅ Avaliações</li>
+<li>✅ Média automática</li>
+<li>✅ Melhor e pior filme</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<span class="badge">PASSO 1</span>
+
+<h2>🧠 Criando a média</h2>
+
+<div class="code">
+<pre>
+def calcular_media(avaliacoes):
+
+    if len(avaliacoes) == 0:
+        return 0
+
+    return round(sum(avaliacoes) / len(avaliacoes), 1)
+</pre>
+</div>
+
+</div>
+
+<div class="card">
+
+<span class="badge">PASSO 2</span>
+
+<h2>🔥 Classificando filmes</h2>
+
+<div class="code">
+<pre>
+def classificar_filme(media):
+
+    if media >= 8:
+        return "🔥 Sucesso"
+
+    elif media >= 5:
+        return "👍 Regular"
+
+    else:
+        return "💀 Flop"
+</pre>
+</div>
+
+</div>
+
+<div class="card">
+
+<span class="badge">PASSO 3</span>
+
+<h2>🎥 Cadastro de filmes</h2>
+
+<div class="code">
+<pre>
+def cadastrar_filme():
+
+    titulo = input("Título do filme: ")
+    genero = input("Gênero: ")
+
+    filme = {
+        "titulo": titulo,
+        "genero": genero,
+        "avaliacoes": [],
+        "media": 0,
+        "classificacao": "Sem avaliações",
+        "disponivel": True,
+        "cliente": None
+    }
+
+    return filme
+</pre>
+</div>
+
+</div>
+
+<div class="card">
+
+<span class="badge">PASSO 4</span>
+
+<h2>🍿 Alugando filmes</h2>
+
+<div class="code">
+<pre>
+def alugar_filme(filmes):
+
+    titulo = input("Digite o título do filme: ")
+
+    for f in filmes:
+
+        if f["titulo"].lower() == titulo.lower():
+
+            if f["disponivel"]:
+
+                nome = input("Seu nome: ")
+
+                f["disponivel"] = False
+                f["cliente"] = nome
+
+                print("🎬 Filme alugado!")
+
+            else:
+                print(f"❌ Já alugado por {f['cliente']}")
+</pre>
+</div>
+
+</div>
+
+<div class="card">
+
+<span class="badge">PASSO FINAL</span>
+
+<h2>🚀 Código Completo do Sistema</h2>
+
+<div class="code">
+
+<pre>
+import os
+
+# ================================
+# FUNÇÕES BASE
+# ================================
+
+def calcular_media(avaliacoes):
+    if len(avaliacoes) == 0:
+        return 0
+    return round(sum(avaliacoes) / len(avaliacoes), 1)
+
+
+def classificar_filme(media):
+    if media >= 8:
+        return "🔥 Sucesso"
+    elif media >= 5:
+        return "👍 Regular"
+    else:
+        return "💀 Flop"
+
+
+# ================================
+# CADASTRAR FILME (ADMIN)
+# ================================
+def cadastrar_filme():
+    titulo = input("Título do filme: ")
+    genero = input("Gênero: ")
+
+    filme = {
+        "titulo": titulo,
+        "genero": genero,
+        "avaliacoes": [],
+        "media": 0,
+        "classificacao": "Sem avaliações",
+        "disponivel": True,
+        "cliente": None
+    }
+
+    return filme
+
+
+# ================================
+# EXIBIR CATÁLOGO
+# ================================
+def exibir_catalogo(filmes):
+    print("\n===== CATÁLOGO =====\n")
+
+    for f in filmes:
+        status = "Disponível" if f["disponivel"] else f"Alugado por {f['cliente']}"
+
+        print(f"Título: {f['titulo']}")
+        print(f"Gênero: {f['genero']}")
+        print(f"Média: {f['media']}")
+        print(f"Avaliações: {len(f['avaliacoes'])}")
+        print(f"Classificação: {f['classificacao']}")
+        print(f"Status: {status}")
+        print("-" * 30)
+
+
+# ================================
+# BUSCAR FILME
+# ================================
+def buscar_filme(titulo, filmes):
+    for f in filmes:
+        if f["titulo"].lower() == titulo.lower():
+            return f
+    return None
+
+
+# ================================
+# ALUGAR FILME
+# ================================
+def alugar_filme(filmes):
+    titulo = input("Digite o título do filme: ")
+
+    for f in filmes:
+        if f["titulo"].lower() == titulo.lower():
+
+            if f["disponivel"]:
+                nome = input("Seu nome: ")
+                f["disponivel"] = False
+                f["cliente"] = nome
+                print("🎬 Filme alugado!")
+            else:
+                print(f"❌ Já alugado por {f['cliente']}")
+            return
+
+    print("Filme não encontrado.")
+
+
+# ================================
+# DEVOLVER FILME + AVALIAR
+# ================================
+def devolver_filme(filmes):
+    titulo = input("Digite o título do filme: ")
+
+    for f in filmes:
+        if f["titulo"].lower() == titulo.lower():
+
+            if not f["disponivel"]:
+                print(f"Filme estava com: {f['cliente']}")
+
+                while True:
+                    try:
+                        nota = float(input("Dê uma nota (0 a 10): "))
+
+                        if 0 <= nota <= 10:
+                            break
+                        else:
+                            print("Nota inválida!")
+
+                    except:
+                        print("Digite um número válido!")
+
+                f["avaliacoes"].append(nota)
+
+                f["media"] = calcular_media(f["avaliacoes"])
+                f["classificacao"] = classificar_filme(f["media"])
+
+                f["disponivel"] = True
+                f["cliente"] = None
+
+                print("🔁 Devolvido com sucesso!")
+                print(f"⭐ Nova média: {f['media']}")
+
+            else:
+                print("Esse filme já está disponível.")
+
+            return
+
+    print("Filme não encontrado.")
+
+
+# ================================
+# MELHOR E PIOR FILME
+# ================================
+def melhor_filme(filmes):
+    return max(filmes, key=lambda f: f["media"])
+
+
+def pior_filme(filmes):
+    return min(filmes, key=lambda f: f["media"])
+
+
+# ================================
+# MENU CLIENTE
+# ================================
+def menu_cliente(filmes):
+    while True:
+        print("\n=== MENU CLIENTE 🍿 ===")
+        print("1 - Ver catálogo")
+        print("2 - Buscar filme")
+        print("3 - Alugar filme")
+        print("4 - Devolver filme")
+        print("5 - Voltar")
+
+        op = input("Escolha: ")
+
+        if op == "1":
+            if len(filmes) == 0:
+                print("Nenhum filme disponível.")
+            else:
+                exibir_catalogo(filmes)
+
+        elif op == "2":
+            nome = input("Digite o título: ")
+            filme = buscar_filme(nome, filmes)
+
+            if filme:
+                print(filme)
+            else:
+                print("Não encontrado.")
+
+        elif op == "3":
+            alugar_filme(filmes)
+
+        elif op == "4":
+            devolver_filme(filmes)
+
+        elif op == "5":
+            break
+
+        else:
+            print("Opção inválida!")
+
+
+# ================================
+# MENU ADMIN
+# ================================
+def menu_admin(filmes):
+    senha = input("Senha do admin: ")
+
+    if senha != "123":
+        print("Acesso negado! 🔒")
+        return
+
+    while True:
+        print("\n=== MENU ADMIN 🛠️ ===")
+        print("1 - Cadastrar filme")
+        print("2 - Ver catálogo")
+        print("3 - Top e Flop")
+        print("4 - Voltar")
+
+        op = input("Escolha: ")
+
+        if op == "1":
+            filme = cadastrar_filme()
+            filmes.append(filme)
+            print("Filme cadastrado!")
+
+        elif op == "2":
+            exibir_catalogo(filmes)
+
+        elif op == "3":
+            if len(filmes) == 0:
+                print("Sem filmes.")
+            else:
+                print("\n🏆 Melhor:", melhor_filme(filmes))
+                print("\n💀 Pior:", pior_filme(filmes))
+
+        elif op == "4":
+            break
+
+        else:
+            print("Opção inválida!")
+
+
+# ================================
+# SISTEMA PRINCIPAL
+# ================================
+os.system("cls")
+
+filmes = []
+
+while True:
+
+    print("\n=== LOCADORA 🎬 ===")
+    print("1 - Cliente")
+    print("2 - Admin")
+    print("3 - Sair")
+
+    op = input("Escolha: ")
+
+    if op == "1":
+        menu_cliente(filmes)
+
+    elif op == "2":
+        menu_admin(filmes)
+
+    elif op == "3":
+        print("Encerrando... 👋")
+        break
+
+    else:
+        print("Opção inválida!")
+</pre>
+
+</div>
+
+<div class="destaque">
+⚠️ Cópia, seleção de texto e colagem foram desabilitadas para fins didáticos.
+</div>
+
+</div>
+
+<footer>
+
+<p>
+🎬 Tutorial desenvolvido para prática de lógica de programação com Python.
+</p>
+
+</footer>
+
+</div>
+
+<script>
+
+// BLOQUEAR BOTÃO DIREITO
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+});
+
+// BLOQUEAR CTRL+C / CTRL+V / CTRL+U / CTRL+S
+document.addEventListener("keydown", function(e){
+
+    if(e.ctrlKey && (
+        e.key === "c" ||
+        e.key === "C" ||
+        e.key === "v" ||
+        e.key === "V" ||
+        e.key === "u" ||
+        e.key === "U" ||
+        e.key === "s" ||
+        e.key === "S"
+    )){
+        e.preventDefault();
+    }
+
+});
+
+// BLOQUEAR CÓPIA
+document.addEventListener("copy", function(e){
+    e.preventDefault();
+});
+
+// BLOQUEAR COLAR
+document.addEventListener("paste", function(e){
+    e.preventDefault();
+});
+
+// BLOQUEAR RECORTE
+document.addEventListener("cut", function(e){
+    e.preventDefault();
+});
+
+</script>
+
+</body>
+</html>
