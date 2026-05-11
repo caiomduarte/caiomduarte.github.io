@@ -390,15 +390,97 @@
     .info-grid .full { grid-column: 1; }
     .submit-stats { gap: 16px; }
   }
+
+  /* ORIENTACOES */
+  .orientacoes {
+    max-width: 860px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+  }
+  .orientacoes-box {
+    background: linear-gradient(135deg, rgba(247,201,72,.07) 0%, rgba(91,245,176,.05) 100%);
+    border: 1px solid rgba(247,201,72,.25);
+    border-left: 4px solid var(--accent-py);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+  }
+  .orientacoes-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-py);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .orientacoes-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--accent-py);
+    border-radius: 50%;
+  }
+  .orientacoes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .orientacoes-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .orientacoes-item .oi-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .orientacoes-item.destaque {
+    background: rgba(245,91,158,.08);
+    border: 1px solid rgba(245,91,158,.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #f8b8d0;
+    font-weight: 600;
+  }
+  .orientacoes-item.destaque .oi-icon { font-size: 18px; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="badge">Avaliação Técnica · 40 Questões</div>
+  <div class="badge">Avaliação · 40 Questões Dissertativas</div>
   <h1>TI <span>Fundamentals</span></h1>
   <p>Formulário dissertativo — Python, Sistemas Operacionais, Redes e Levantamento de Requisitos</p>
 </header>
+<div class="orientacoes">
+  <div class="orientacoes-box">
+    <div class="orientacoes-title">Orientações importantes</div>
+    <div class="orientacoes-list">
+      <div class="orientacoes-item">
+        <span class="oi-icon">&#x2705;</span>
+        <span>A prova <strong>permite pesquisa</strong>.</span>
+      </div>
+      <div class="orientacoes-item">
+        <span class="oi-icon">&#x2705;</span>
+        <span>O foco é avaliar <strong>interpretação, lógica e entendimento</strong>.</span>
+      </div>
+      <div class="orientacoes-item">
+        <span class="oi-icon">&#x2705;</span>
+        <span>Respostas copiadas <strong>sem coerência</strong> podem perder pontuação.</span>
+      </div>
+      <div class="orientacoes-item destaque">
+        <span class="oi-icon">&#x23F0;</span>
+        <span>Prazo para envio: <strong>16h30</strong> &mdash; Respostas enviadas após esse horário serão desconsideradas.</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="student-info">
   <div class="info-grid">
@@ -824,7 +906,66 @@
   <div style="width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent-so);border-radius:50%;animation:spin .8s linear infinite;"></div>
   <p style="font-family:'Space Mono',monospace;font-size:13px;color:var(--text-muted);">Enviando para a planilha...</p>
 </div>
-<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<style>@keyframes spin{to{transform:rotate(360deg)}}
+  /* ORIENTACOES */
+  .orientacoes {
+    max-width: 860px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+  }
+  .orientacoes-box {
+    background: linear-gradient(135deg, rgba(247,201,72,.07) 0%, rgba(91,245,176,.05) 100%);
+    border: 1px solid rgba(247,201,72,.25);
+    border-left: 4px solid var(--accent-py);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+  }
+  .orientacoes-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-py);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .orientacoes-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--accent-py);
+    border-radius: 50%;
+  }
+  .orientacoes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .orientacoes-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .orientacoes-item .oi-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .orientacoes-item.destaque {
+    background: rgba(245,91,158,.08);
+    border: 1px solid rgba(245,91,158,.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #f8b8d0;
+    font-weight: 600;
+  }
+  .orientacoes-item.destaque .oi-icon { font-size: 18px; }
+</style>
 
 <!-- CONFIRM MODAL -->
 <div class="modal-overlay" id="modal">
