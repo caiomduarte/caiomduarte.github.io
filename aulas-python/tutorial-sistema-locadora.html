@@ -127,7 +127,235 @@ footer{
     text-align:center;
     margin-top:50px;
     color:#94a3b8;
+},
+/* ========================================= */
+/* HERO */
+/* ========================================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:80px;
+
+    background:
+    radial-gradient(circle at top left, #6366f1 0%, transparent 35%),
+    radial-gradient(circle at bottom right, #7c3aed 0%, transparent 30%),
+    #020617;
+
+    overflow:hidden;
 }
+
+/* ========================================= */
+/* LEFT */
+/* ========================================= */
+
+.hero-left{
+    width:50%;
+    z-index:2;
+}
+
+.badge-hero{
+    display:inline-block;
+
+    padding:12px 24px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:#dbeafe;
+
+    font-size:1rem;
+
+    margin-bottom:35px;
+
+    backdrop-filter:blur(10px);
+}
+
+.hero h1{
+    font-size:7rem;
+    line-height:.95;
+    font-weight:800;
+    color:white;
+}
+
+.hero h1 span{
+    color:#818cf8;
+}
+
+.hero p{
+    margin-top:35px;
+    font-size:1.5rem;
+    line-height:1.8;
+    color:#cbd5e1;
+    max-width:750px;
+}
+
+/* ========================================= */
+/* BUTTONS */
+/* ========================================= */
+
+.buttons{
+    display:flex;
+    gap:25px;
+    margin-top:50px;
+}
+
+.btn-primary{
+
+    padding:22px 40px;
+
+    background:#6366f1;
+
+    border:none;
+
+    border-radius:24px;
+
+    color:white;
+
+    font-size:1.2rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-primary:hover{
+    transform:translateY(-5px);
+    background:#7c3aed;
+}
+
+.btn-secondary{
+
+    padding:22px 40px;
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:24px;
+
+    color:white;
+
+    font-size:1.2rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,.05);
+}
+
+/* ========================================= */
+/* RIGHT */
+/* ========================================= */
+
+.hero-right{
+    width:42%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ========================================= */
+/* CODE WINDOW */
+/* ========================================= */
+
+.code-window{
+
+    width:100%;
+
+    background:#d4d4d8;
+
+    padding:35px;
+
+    border-radius:35px;
+
+    box-shadow:
+    0 0 120px rgba(124,58,237,.45);
+
+    position:relative;
+}
+
+.code-inner{
+
+    background:#f4f4f5;
+
+    border-radius:28px;
+
+    padding:45px;
+
+    font-family:Consolas;
+
+    font-size:1.5rem;
+
+    line-height:2;
+}
+
+/* ========================================= */
+/* COLORS */
+/* ========================================= */
+
+.blue{
+    color:#0284c7;
+}
+
+.green{
+    color:#65a30d;
+}
+
+.pink{
+    color:#e11d48;
+}
+
+.orange{
+    color:#d97706;
+}
+
+/* ========================================= */
+/* RESPONSIVO */
+/* ========================================= */
+
+@media(max-width:1200px){
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        gap:80px;
+        padding:60px 30px;
+    }
+
+    .hero-left,
+    .hero-right{
+        width:100%;
+    }
+
+    .hero h1{
+        font-size:4.5rem;
+    }
+
+    .hero p{
+        margin:auto;
+        margin-top:30px;
+    }
+
+    .buttons{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+}
+
 
 </style>
 
@@ -138,7 +366,68 @@ footer{
 <div class="container">
 
 <header>
+<section class="hero">
 
+    <!-- LEFT -->
+    <div class="hero-left">
+
+        <div class="badge-hero">
+            Python + Listas + Dicionários + Funções
+        </div>
+
+        <h1>
+            Sistema<br>
+            Locadora<br>
+            <span>MoviePy 🎬</span>
+        </h1>
+
+        <p>
+            Aprenda a desenvolver um sistema completo de locadora
+            utilizando Python puro de forma prática, moderna e divertida.
+        </p>
+
+        <div class="buttons">
+
+            <button class="btn-primary">
+                🚀 Começar Tutorial
+            </button>
+
+            <button class="btn-secondary">
+                📚 Ver Estrutura
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-right">
+
+        <div class="code-window">
+
+            <div class="code-inner">
+
+<span class="blue">import</span> os<br><br>
+
+<span class="blue">def</span> <span class="pink">calcular_media</span>(avaliacoes):<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">return</span> <span class="orange">round</span>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange">sum</span>(avaliacoes) / <span class="orange">len</span>(avaliacoes), 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br><br>
+
+<span class="blue">def</span> <span class="pink">classificar_filme</span>(media):<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">if</span> media >= <span class="green">8</span>:<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">return</span> <span class="green">"🔥 Sucesso"</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 <h1>🎬 Sistema de Locadora em Python</h1>
 
 <p>
