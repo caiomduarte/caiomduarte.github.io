@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Avaliação — TI Fundamentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --surface: #16161a;
+    --surface2: #1e1e24;
+    --border: #2a2a35;
+    --accent-py: #f7c948;
+    --accent-so: #5bf5b0;
+    --accent-net: #5bc8f5;
+    --accent-req: #f55b9e;
+    --text: #e8e8f0;
+    --text-muted: #7a7a90;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 80px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #0d0d0f 0%, #1a1a24 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 50%, rgba(247,201,72,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 50%, rgba(91,245,176,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 4px 16px;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  header h1 span { color: var(--accent-py); }
+  header p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ── STUDENT INFO ── */
+  .student-info {
+    max-width: 860px;
+    margin: 36px auto 0;
+    padding: 0 24px;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .info-grid .full { grid-column: 1 / -1; }
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .field input, .field select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--accent-py);
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    max-width: 860px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+  }
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 8px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-py), var(--accent-so), var(--accent-net), var(--accent-req));
+    border-radius: 99px;
+    transition: width .4s ease;
+  }
+
+  /* ── SECTION ── */
+  .section-wrap {
+    max-width: 860px;
+    margin: 36px auto 0;
+    padding: 0 24px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .py   .section-icon { background: rgba(247,201,72,.12); }
+  .so   .section-icon { background: rgba(91,245,176,.12); }
+  .net  .section-icon { background: rgba(91,200,245,.12); }
+  .req  .section-icon { background: rgba(245,91,158,.12); }
+
+  .section-title h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .py   .section-title h2 { color: var(--accent-py); }
+  .so   .section-title h2 { color: var(--accent-so); }
+  .net  .section-title h2 { color: var(--accent-net); }
+  .req  .section-title h2 { color: var(--accent-req); }
+
+  .section-title p {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    transition: border-color .2s, transform .15s;
+  }
+  .question-card:hover { transform: translateY(-1px); }
+  .py  .question-card:hover { border-color: rgba(247,201,72,.4); }
+  .so  .question-card:hover { border-color: rgba(91,245,176,.4); }
+  .net .question-card:hover { border-color: rgba(91,200,245,.4); }
+  .req .question-card:hover { border-color: rgba(245,91,158,.4); }
+
+  .question-card.answered {
+    border-left-width: 3px;
+  }
+  .py  .question-card.answered { border-left-color: var(--accent-py); }
+  .so  .question-card.answered { border-left-color: var(--accent-so); }
+  .net .question-card.answered { border-left-color: var(--accent-net); }
+  .req .question-card.answered { border-left-color: var(--accent-req); }
+
+  .q-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .q-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+  .py  .q-dot { background: var(--accent-py); }
+  .so  .q-dot { background: var(--accent-so); }
+  .net .q-dot { background: var(--accent-net); }
+  .req .q-dot { background: var(--accent-req); }
+
+  .q-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .q-text strong {
+    font-weight: 600;
+  }
+
+  textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    min-height: 90px;
+    transition: border-color .2s;
+  }
+  .py  textarea:focus { border-color: var(--accent-py); }
+  .so  textarea:focus { border-color: var(--accent-so); }
+  .net textarea:focus { border-color: var(--accent-net); }
+  .req textarea:focus { border-color: var(--accent-req); }
+
+  .char-count {
+    text-align: right;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    margin-top: 4px;
+  }
+
+  /* ── SUBMIT ── */
+  .submit-area {
+    max-width: 860px;
+    margin: 36px auto 0;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .submit-stats {
+    display: flex;
+    gap: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .submit-stats span strong {
+    color: var(--text);
+    font-size: 16px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .submit-stats span { text-align: center; }
+
+  button[type="submit"] {
+    background: var(--accent-py);
+    color: #0d0d0f;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 48px;
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .5px;
+    transition: opacity .2s, transform .15s;
+  }
+  button[type="submit"]:hover { opacity: .85; transform: translateY(-1px); }
+  button[type="submit"]:active { transform: translateY(0); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    animation: popIn .3s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .modal .emoji { font-size: 48px; margin-bottom: 16px; }
+  .modal h3 { font-size: 22px; margin-bottom: 8px; }
+  .modal p  { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+  .modal-actions { display: flex; gap: 12px; justify-content: center; }
+  .btn-confirm {
+    background: var(--accent-so);
+    color: #0d0d0f;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 28px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .btn-cancel {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 28px;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* ── SUCCESS ── */
+  #success-screen {
+    display: none;
+    max-width: 860px;
+    margin: 60px auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+  #success-screen .big-emoji { font-size: 64px; margin-bottom: 20px; }
+  #success-screen h2 { font-size: 28px; margin-bottom: 12px; }
+  #success-screen p  { color: var(--text-muted); max-width: 420px; margin: 0 auto 28px; }
+  .btn-restart {
+    background: var(--accent-req);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .info-grid .full { grid-column: 1; }
+    .submit-stats { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Avaliação Técnica · 40 Questões</div>
+  <h1>TI <span>Fundamentals</span></h1>
+  <p>Formulário dissertativo — Python, Sistemas Operacionais, Redes e Levantamento de Requisitos</p>
+</header>
+
+<div class="student-info">
+  <div class="info-grid">
+    <div class="field full">
+      <label>Nome completo</label>
+      <input type="text" id="nome" placeholder="Seu nome completo">
+    </div>
+    <div class="field">
+      <label>Turma / Curso</label>
+      <input type="text" id="turma" placeholder="Ex: ADS — 1º Semestre">
+    </div>
+    <div class="field">
+      <label>Data</label>
+      <input type="date" id="data">
+    </div>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-header">
+    <span>Progresso</span>
+    <span id="prog-label">0 / 40 respondidas</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<form id="main-form">
+
+<!-- ═══════════════ PYTHON ═══════════════ -->
+<div class="section-wrap py">
+  <div class="section-header">
+    <div class="section-icon">🐍</div>
+    <div class="section-title">
+      <h2>Python</h2>
+      <p>10 questões · variáveis, operadores, condicionais, laços e listas</p>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 01</div>
+    <p class="q-text">O que é uma <strong>variável</strong> em Python? Explique como declaramos e atribuímos um valor a ela, dando um exemplo prático.</p>
+    <textarea name="q1" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 02</div>
+    <p class="q-text">Quais são os <strong>tipos de dados primitivos</strong> em Python? Cite pelo menos quatro e dê um exemplo de valor para cada tipo.</p>
+    <textarea name="q2" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 03</div>
+    <p class="q-text">Explique a função <strong>print()</strong> e a função <strong>input()</strong>. Como elas são usadas para interagir com o usuário?</p>
+    <textarea name="q3" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 04</div>
+    <p class="q-text">Quais são os <strong>operadores aritméticos</strong> disponíveis em Python? Cite-os e explique o que cada um faz, incluindo o operador de módulo e de exponenciação.</p>
+    <textarea name="q4" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 05</div>
+    <p class="q-text">O que são <strong>operadores de comparação</strong>? Dê exemplos de como eles são usados em Python e qual tipo de valor eles retornam.</p>
+    <textarea name="q5" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 06</div>
+    <p class="q-text">Como funciona a estrutura <strong>if / elif / else</strong> em Python? Explique com um exemplo que verifique se um número é positivo, negativo ou zero.</p>
+    <textarea name="q6" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 07</div>
+    <p class="q-text">Explique o funcionamento do laço <strong>while</strong> em Python. Em que situações ele é mais adequado do que o <em>for</em>? Dê um exemplo.</p>
+    <textarea name="q7" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 08</div>
+    <p class="q-text">Como o laço <strong>for</strong> funciona em Python? Explique como ele percorre uma sequência e dê um exemplo com a função <em>range()</em>.</p>
+    <textarea name="q8" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 09</div>
+    <p class="q-text">O que é uma <strong>lista</strong> em Python? Como criamos, acessamos e modificamos elementos de uma lista? Explique e dê exemplos.</p>
+    <textarea name="q9" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 10</div>
+    <p class="q-text">Cite e explique pelo menos <strong>quatro métodos</strong> comuns de listas em Python (ex: append, remove, sort, pop). O que cada um faz?</p>
+    <textarea name="q10" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+</div>
+
+<!-- ═══════════════ SISTEMAS OPERACIONAIS ═══════════════ -->
+<div class="section-wrap so">
+  <div class="section-header">
+    <div class="section-icon">💻</div>
+    <div class="section-title">
+      <h2>Sistemas Operacionais</h2>
+      <p>10 questões · conceitos básicos de Windows e Linux</p>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 11</div>
+    <p class="q-text">O que é um <strong>sistema operacional</strong>? Qual é sua principal função em um computador? Cite dois exemplos de sistemas operacionais.</p>
+    <textarea name="q11" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 12</div>
+    <p class="q-text">O que é o <strong>kernel</strong> de um sistema operacional? Explique sua função e como ele se relaciona com os programas e o hardware.</p>
+    <textarea name="q12" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 13</div>
+    <p class="q-text">Explique o que é <strong>gerenciamento de processos</strong>. O que é um processo? Como o SO controla a execução de múltiplos programas ao mesmo tempo?</p>
+    <textarea name="q13" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 14</div>
+    <p class="q-text">O que é o <strong>sistema de arquivos</strong>? Como o Windows organiza arquivos e pastas? Explique a estrutura de diretórios básica do Windows.</p>
+    <textarea name="q14" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 15</div>
+    <p class="q-text">Quais são as principais diferenças entre a interface <strong>GUI (gráfica)</strong> e a interface <strong>CLI (linha de comando)</strong>? Em que situações cada uma é mais usada?</p>
+    <textarea name="q15" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 16</div>
+    <p class="q-text">No <strong>Windows</strong>, o que é o Prompt de Comando (CMD)? Cite e explique pelo menos quatro comandos básicos utilizados nele.</p>
+    <textarea name="q16" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 17</div>
+    <p class="q-text">O que é o <strong>Linux</strong>? Cite suas principais características e como ele se diferencia do Windows no modelo de licença e uso.</p>
+    <textarea name="q17" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 18</div>
+    <p class="q-text">No <strong>Linux</strong>, explique o conceito de <em>permissões de arquivos</em> (leitura, escrita e execução). Como funcionam as permissões para dono, grupo e outros?</p>
+    <textarea name="q18" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 19</div>
+    <p class="q-text">Cite e explique pelo menos <strong>cinco comandos básicos do terminal Linux</strong> (como ls, cd, mkdir, rm, cp) e o que cada um faz.</p>
+    <textarea name="q19" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 20</div>
+    <p class="q-text">O que é o <strong>gerenciamento de memória</strong> pelo sistema operacional? Explique brevemente o conceito de memória virtual e por que ele é importante.</p>
+    <textarea name="q20" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+</div>
+
+<!-- ═══════════════ REDES ═══════════════ -->
+<div class="section-wrap net">
+  <div class="section-header">
+    <div class="section-icon">🌐</div>
+    <div class="section-title">
+      <h2>Redes de Computadores</h2>
+      <p>10 questões · do básico ao IPv4</p>
+    </div>
+  </div>
+
+  <!-- Q21 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 21</div>
+    <p class="q-text">O que é uma <strong>rede de computadores</strong>? Qual é o objetivo principal de conectar computadores em rede? Cite dois benefícios práticos.</p>
+    <textarea name="q21" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 22</div>
+    <p class="q-text">Explique a diferença entre os tipos de rede <strong>LAN, MAN e WAN</strong>. Dê um exemplo de uso para cada um.</p>
+    <textarea name="q22" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 23</div>
+    <p class="q-text">O que é o <strong>modelo OSI</strong>? Cite suas sete camadas e descreva brevemente a função de cada uma.</p>
+    <textarea name="q23" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 24</div>
+    <p class="q-text">O que é o <strong>protocolo TCP/IP</strong>? Explique a diferença entre o protocolo TCP e o UDP e em que situações cada um é mais adequado.</p>
+    <textarea name="q24" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 25</div>
+    <p class="q-text">O que é um <strong>endereço IP</strong>? Explique o conceito de endereço lógico e qual é a função do IP na comunicação entre dispositivos em rede.</p>
+    <textarea name="q25" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q26 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 26</div>
+    <p class="q-text">Explique como funciona o <strong>IPv4</strong>. Quantos bits ele possui? Como é sua notação decimal pontuada? Qual é o número máximo de endereços possíveis?</p>
+    <textarea name="q26" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q27 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 27</div>
+    <p class="q-text">Quais são as <strong>classes de endereços IPv4</strong> (A, B, C, D, E)? Explique o intervalo e o uso principal de cada uma.</p>
+    <textarea name="q27" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 28</div>
+    <p class="q-text">O que é <strong>máscara de sub-rede</strong>? Como ela é usada para determinar a parte de rede e a parte de host de um endereço IP?</p>
+    <textarea name="q28" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q29 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 29</div>
+    <p class="q-text">O que é <strong>DHCP</strong>? Qual é a sua função em uma rede e como ele facilita a administração de endereços IP?</p>
+    <textarea name="q29" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 30</div>
+    <p class="q-text">O que é o protocolo <strong>DNS</strong>? Explique como ele funciona na tradução de nomes de domínio para endereços IP, com um exemplo prático.</p>
+    <textarea name="q30" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+</div>
+
+<!-- ═══════════════ LEVANTAMENTO DE REQUISITOS ═══════════════ -->
+<div class="section-wrap req">
+  <div class="section-header">
+    <div class="section-icon">📋</div>
+    <div class="section-title">
+      <h2>Levantamento de Requisitos</h2>
+      <p>10 questões · conceitos e técnicas de levantamento</p>
+    </div>
+  </div>
+
+  <!-- Q31 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 31</div>
+    <p class="q-text">O que é <strong>levantamento de requisitos</strong> no contexto de desenvolvimento de software? Por que essa etapa é considerada fundamental em um projeto?</p>
+    <textarea name="q31" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q32 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 32</div>
+    <p class="q-text">Explique a diferença entre <strong>requisitos funcionais</strong> e <strong>requisitos não funcionais</strong>. Dê dois exemplos de cada tipo.</p>
+    <textarea name="q32" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q33 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 33</div>
+    <p class="q-text">Quem são os <strong>stakeholders</strong> em um projeto de software? Qual é o papel deles no processo de levantamento de requisitos?</p>
+    <textarea name="q33" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q34 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 34</div>
+    <p class="q-text">O que são <strong>requisitos de negócio</strong>? Como eles se diferem dos requisitos de usuário e dos requisitos de sistema?</p>
+    <textarea name="q34" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q35 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 35</div>
+    <p class="q-text">Explique a técnica de levantamento de requisitos por meio de <strong>entrevistas</strong>. Quais são as vantagens e desvantagens desse método?</p>
+    <textarea name="q35" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q36 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 36</div>
+    <p class="q-text">O que é a técnica de <strong>brainstorming</strong> aplicada ao levantamento de requisitos? Como ela é conduzida e qual é seu objetivo principal?</p>
+    <textarea name="q36" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q37 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 37</div>
+    <p class="q-text">O que é a técnica de <strong>observação (etnografia)</strong> no levantamento de requisitos? Em que tipos de projeto ela é mais indicada?</p>
+    <textarea name="q37" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q38 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 38</div>
+    <p class="q-text">O que são <strong>casos de uso (Use Cases)</strong>? Como eles auxiliam no levantamento e documentação de requisitos? Descreva sua estrutura básica.</p>
+    <textarea name="q38" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q39 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 39</div>
+    <p class="q-text">O que é a técnica de <strong>prototipação</strong> no contexto de levantamento de requisitos? Como um protótipo ajuda a identificar e validar requisitos com o cliente?</p>
+    <textarea name="q39" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+
+  <!-- Q40 -->
+  <div class="question-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO 40</div>
+    <p class="q-text">Quais são os principais <strong>problemas e desafios</strong> encontrados durante o levantamento de requisitos? Cite pelo menos três e explique como podem ser minimizados.</p>
+    <textarea name="q40" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+    <div class="char-count"><span class="cc">0</span> caracteres</div>
+  </div>
+</div>
+
+<div class="submit-area">
+  <div class="submit-stats">
+    <span><strong id="stat-answered">0</strong>respondidas</span>
+    <span><strong id="stat-remaining">40</strong>restantes</span>
+    <span><strong id="stat-pct">0%</strong>concluído</span>
+  </div>
+  <button type="submit">Enviar Formulário →</button>
+</div>
+
+</form>
+
+<!-- SUCCESS SCREEN -->
+<div id="success-screen">
+  <div class="big-emoji">&#x2705;</div>
+  <h2>Respostas enviadas!</h2>
+  <p>Suas respostas foram gravadas na planilha com sucesso. Voc&#234; pode fechar esta p&#225;gina.</p>
+  <button class="btn-restart" onclick="resetForm()">Preencher novamente</button>
+</div>
+
+<!-- ERROR SCREEN -->
+<div id="error-screen" style="display:none;max-width:860px;margin:60px auto;padding:0 24px;text-align:center;">
+  <div style="font-size:64px;margin-bottom:20px;">&#x26A0;&#xFE0F;</div>
+  <h2 style="font-size:28px;margin-bottom:12px;color:var(--accent-req);">Erro ao enviar</h2>
+  <p style="color:var(--text-muted);max-width:440px;margin:0 auto 12px;">N&#227;o foi poss&#237;vel conectar &#224; planilha. Verifique se a URL do Apps Script est&#225; configurada corretamente.</p>
+  <p style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text-muted);margin-bottom:28px;" id="error-detail"></p>
+  <button class="btn-restart" style="background:var(--accent-net);" onclick="backToForm()">Tentar novamente</button>
+</div>
+
+<!-- SENDING OVERLAY -->
+<div id="sending-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+  <div style="width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent-so);border-radius:50%;animation:spin .8s linear infinite;"></div>
+  <p style="font-family:'Space Mono',monospace;font-size:13px;color:var(--text-muted);">Enviando para a planilha...</p>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="emoji">&#x1F4E4;</div>
+    <h3>Enviar respostas?</h3>
+    <p id="modal-msg">Voc&#234; respondeu <strong id="modal-count"></strong> de 40 quest&#245;es. Deseja confirmar o envio?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Voltar</button>
+      <button class="btn-confirm" onclick="confirmSubmit()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*
+  =====================================================================
+  INSTRUCOES: GOOGLE APPS SCRIPT
+  =====================================================================
+  1. Abra sua planilha no Google Sheets
+  2. Va em Extensoes > Apps Script
+  3. Apague tudo e cole o codigo abaixo:
+
+  -------------------------------------------------------------------
+  function doPost(e) {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data  = JSON.parse(e.postData.contents);
+
+    // Cria cabecalho se a planilha estiver vazia
+    if (sheet.getLastRow() === 0) {
+      var headers = ["Enviado em", "Nome", "Turma", "Data", "% Concluido"];
+      for (var i = 1; i <= 40; i++) headers.push("Q" + i);
+      sheet.appendRow(headers);
+      sheet.getRange(1, 1, 1, headers.length).setFontWeight("bold");
+    }
+
+    var row = [
+      data.meta.enviadoEm,
+      data.aluno.nome,
+      data.aluno.turma,
+      data.aluno.data,
+      data.meta.percentualConcluido
+    ];
+    for (var j = 1; j <= 40; j++) {
+      row.push(data.respostas["q" + j] || "");
+    }
+    sheet.appendRow(row);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "ok" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  -------------------------------------------------------------------
+
+  4. Salve (Ctrl+S) e clique em "Implantar" > "Nova implantacao"
+  5. Tipo: "App da Web"
+     - Executar como: "Eu (seu email)"
+     - Quem tem acesso: "Qualquer pessoa"
+  6. Clique em "Implantar" e copie a URL gerada
+  7. Cole a URL na variavel APPS_SCRIPT_URL abaixo
+  =====================================================================
+  */
+
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvx_PZEEUvylEbmdSu_A6xAsTU7132UYAg1hXbmEk2k1-HWx8FCGdhx8GbLs2SmBGY/exec";
+
+  // Set today's date
+  document.getElementById('data').valueAsDate = new Date();
+
+  // BLOQUEAR COPIAR / COLAR / RECORTAR nos textareas
+  document.querySelectorAll('textarea').forEach(function(ta) {
+    ['paste', 'copy', 'cut', 'contextmenu', 'drop'].forEach(function(evt) {
+      ta.addEventListener(evt, function(e) {
+        e.preventDefault();
+        showNoCopyToast();
+        return false;
+      });
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (document.activeElement.tagName === 'TEXTAREA') {
+      const blocked = (e.ctrlKey || e.metaKey) && ['v','c','x'].includes(e.key.toLowerCase());
+      if (blocked) {
+        e.preventDefault();
+        showNoCopyToast();
+      }
+    }
+  });
+
+  let toastTimer;
+  function showNoCopyToast() {
+    let toast = document.getElementById('no-copy-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'no-copy-toast';
+      toast.style.cssText = [
+        "position:fixed","bottom:28px","left:50%",
+        "transform:translateX(-50%) translateY(10px)",
+        "background:#1e1e24","border:1px solid #f55b9e","color:#f55b9e",
+        "font-family:'Space Mono',monospace","font-size:12px","letter-spacing:1px",
+        "padding:10px 22px","border-radius:99px","z-index:9999",
+        "opacity:0","transition:opacity .2s, transform .2s","pointer-events:none",
+        "white-space:nowrap"
+      ].join(";");
+      toast.textContent = "Copiar/colar nao e permitido nesta avaliacao";
+      document.body.appendChild(toast);
+    }
+    clearTimeout(toastTimer);
+    toast.style.opacity = "1";
+    toast.style.transform = "translateX(-50%) translateY(0)";
+    toastTimer = setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(-50%) translateY(10px)";
+    }, 2200);
+  }
+
+  let answered = 0;
+
+  function onInput(el) {
+    const card = el.closest('.question-card');
+    const cc   = card.querySelector('.cc');
+    const len  = el.value.trim().length;
+    cc.textContent = el.value.length;
+    const wasAnswered = card.classList.contains('answered');
+    const isAnswered  = len >= 5;
+    if (isAnswered && !wasAnswered) { card.classList.add('answered'); answered++; }
+    if (!isAnswered && wasAnswered) { card.classList.remove('answered'); answered--; }
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const pct = Math.round((answered / 40) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = answered + ' / 40 respondidas';
+    document.getElementById('stat-answered').textContent = answered;
+    document.getElementById('stat-remaining').textContent = 40 - answered;
+    document.getElementById('stat-pct').textContent = pct + '%';
+  }
+
+  document.getElementById('main-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('modal-count').textContent = answered;
+    document.getElementById('modal').classList.add('show');
+  });
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+
+  function showSending(visible) {
+    const ov = document.getElementById('sending-overlay');
+    ov.style.display = visible ? 'flex' : 'none';
+  }
+
+  function hideAll() {
+    document.getElementById('main-form').style.display = 'none';
+    document.querySelector('.student-info').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+  }
+
+  async function confirmSubmit() {
+    closeModal();
+
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === "COLE_AQUI_A_URL_DO_SEU_APPS_SCRIPT") {
+      document.getElementById('error-detail').textContent = "APPS_SCRIPT_URL nao configurada no HTML.";
+      hideAll();
+      document.getElementById('error-screen').style.display = 'block';
+      return;
+    }
+
+    const form = document.getElementById('main-form');
+    const payload = {
+      aluno: {
+        nome:  document.getElementById('nome').value,
+        turma: document.getElementById('turma').value,
+        data:  document.getElementById('data').value,
+      },
+      respostas: {},
+      meta: {
+        totalRespondidas: answered,
+        percentualConcluido: Math.round((answered/40)*100) + '%',
+        enviadoEm: new Date().toLocaleString('pt-BR')
+      }
+    };
+
+    for (let i = 1; i <= 40; i++) {
+      const ta = form.querySelector('[name="q' + i + '"]');
+      payload.respostas['q' + i] = ta ? ta.value.trim() : '';
+    }
+
+    showSending(true);
+
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      // no-cors sempre retorna opaque - assumimos sucesso se nao lancar
+      showSending(false);
+      hideAll();
+      document.getElementById('success-screen').style.display = 'block';
+    } catch (err) {
+      showSending(false);
+      document.getElementById('error-detail').textContent = err.message || 'Erro desconhecido';
+      hideAll();
+      document.getElementById('error-screen').style.display = 'block';
+    }
+  }
+
+  function backToForm() {
+    document.getElementById('error-screen').style.display = 'none';
+    document.getElementById('main-form').style.display = 'block';
+    document.querySelector('.student-info').style.display = 'block';
+    document.querySelector('.progress-wrap').style.display = 'block';
+  }
+
+  function resetForm() {
+    document.getElementById('main-form').reset();
+    document.getElementById('success-screen').style.display = 'none';
+    document.getElementById('error-screen').style.display = 'none';
+    document.getElementById('main-form').style.display = 'block';
+    document.querySelector('.student-info').style.display = 'block';
+    document.querySelector('.progress-wrap').style.display = 'block';
+    document.querySelectorAll('.question-card').forEach(c => c.classList.remove('answered'));
+    document.querySelectorAll('.cc').forEach(cc => cc.textContent = '0');
+    answered = 0;
+    updateProgress();
+    document.getElementById('data').valueAsDate = new Date();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
