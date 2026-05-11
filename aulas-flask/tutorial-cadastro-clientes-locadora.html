@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Cineflix | Tutorial Flask</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Prism -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.min.css" rel="stylesheet" />
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fb;
+    }
+
+    .glass{
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.7);
+    }
+
+    .hero-gradient{
+      background:
+      radial-gradient(circle at top left,#6366f1 0%,transparent 35%),
+      radial-gradient(circle at bottom right,#8b5cf6 0%,transparent 35%),
+      #111827;
+    }
+
+    .step-card{
+      transition: .3s ease;
+    }
+
+    .step-card:hover{
+      transform: translateY(-5px);
+    }
+
+    pre{
+      border-radius: 18px !important;
+      padding: 20px !important;
+      font-size: .95rem !important;
+    }
+
+    .copy-btn{
+      transition:.2s;
+    }
+
+    .copy-btn:hover{
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+
+<body class="text-gray-800">
+
+  <!-- HERO -->
+  <section class="hero-gradient text-white min-h-screen flex items-center px-6">
+
+    <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center">
+
+      <div>
+
+        <span class="bg-indigo-500/20 text-indigo-200 px-4 py-2 rounded-full text-sm border border-indigo-400/20">
+          Flask + SQLite + CRUD
+        </span>
+
+        <h1 class="text-5xl lg:text-7xl font-extrabold mt-8 leading-tight">
+          Sistema Locadora
+          <span class="text-indigo-400">
+            Cineflix 🎬
+          </span>
+        </h1>
+
+        <p class="text-gray-300 text-lg mt-8 leading-8 max-w-2xl">
+          Aprenda a desenvolver um sistema de cadastro de clientes
+          utilizando Flask, SQLite e HTML de forma prática e moderna.
+        </p>
+
+        <div class="flex gap-4 mt-10 flex-wrap">
+
+          <a href="#tutorial"
+             class="bg-indigo-500 hover:bg-indigo-600 px-7 py-4 rounded-2xl font-semibold shadow-xl transition">
+             Começar Tutorial
+          </a>
+
+          <a href="#estrutura"
+             class="border border-white/20 hover:bg-white/10 px-7 py-4 rounded-2xl font-semibold transition">
+             Ver Estrutura
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+      <div class="glass rounded-3xl p-8 border border-white/10 shadow-2xl">
+
+<pre><code class="language-python">
+from flask import Flask
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Cineflix Online 🚀"
+
+app.run(debug=True)
+</code></pre>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- LAYOUT -->
+  <section id="tutorial" class="max-w-7xl mx-auto px-6 py-24">
+
+    <div class="grid lg:grid-cols-[280px,1fr] gap-10">
+
+      <!-- SIDEBAR -->
+      <aside class="hidden lg:block sticky top-10 h-fit">
+
+        <div class="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
+
+          <h3 class="font-bold text-xl mb-6">
+            📚 Etapas
+          </h3>
+
+          <nav class="space-y-4 text-sm">
+
+            <a href="#estrutura" class="block hover:text-indigo-600 transition">
+              1. Estrutura do Projeto
+            </a>
+
+            <a href="#sqlite" class="block hover:text-indigo-600 transition">
+              2. Conexão SQLite
+            </a>
+
+            <a href="#teste" class="block hover:text-indigo-600 transition">
+              3. Testando Banco
+            </a>
+
+            <a href="#dao" class="block hover:text-indigo-600 transition">
+              4. Cliente DAO
+            </a>
+
+            <a href="#rotas" class="block hover:text-indigo-600 transition">
+              5. Rotas Flask
+            </a>
+
+            <a href="#formulario" class="block hover:text-indigo-600 transition">
+              6. Formulário HTML
+            </a>
+
+            <a href="#erro" class="block hover:text-indigo-600 transition">
+              7. BuildError
+            </a>
+
+          </nav>
+
+        </div>
+
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="space-y-10">
+
+        <!-- PASSO -->
+        <section id="estrutura"
+                 class="step-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+
+          <div class="flex items-center gap-4 mb-6">
+
+            <div class="bg-indigo-100 text-indigo-700 w-14 h-14 rounded-2xl flex items-center justify-center">
+              <i data-lucide="folder-tree"></i>
+            </div>
+
+            <div>
+              <p class="text-indigo-600 font-semibold">
+                PASSO 1
+              </p>
+
+              <h2 class="text-3xl font-bold">
+                Estrutura do Projeto
+              </h2>
+            </div>
+
+          </div>
+
+          <p class="text-gray-600 leading-8">
+            Organize as pastas do projeto corretamente.
+            Isso ajuda a manter a aplicação Flask limpa,
+            escalável e profissional.
+          </p>
+
+          <div class="mt-8 bg-gray-50 border border-gray-200 rounded-2xl p-6">
+
+<pre><code class="language-bash">
+sistema-locadora/
+│
+├── database/
+│   ├── db.py
+│   ├── cliente_dao.py
+│   └── bdlocadora.db
+│
+├── templates/
+│   └── clientes/
+│       ├── cadastro-clientes.html
+│       └── listar-clientes.html
+│
+└── app.py
+</code></pre>
+
+          </div>
+
+        </section>
+
+        <!-- PASSO -->
+        <section id="sqlite"
+                 class="step-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+
+          <div class="flex items-center gap-4 mb-6">
+
+            <div class="bg-violet-100 text-violet-700 w-14 h-14 rounded-2xl flex items-center justify-center">
+              <i data-lucide="database"></i>
+            </div>
+
+            <div>
+              <p class="text-violet-600 font-semibold">
+                PASSO 2
+              </p>
+
+              <h2 class="text-3xl font-bold">
+                Configurando SQLite
+              </h2>
+            </div>
+
+          </div>
+
+          <p class="text-gray-600 leading-8 mb-8">
+            Agora vamos criar a conexão com o banco SQLite.
+          </p>
+
+          <div class="relative">
+
+            <button class="copy-btn absolute top-4 right-4 bg-white px-4 py-2 rounded-xl shadow text-sm font-medium">
+              📋 Copiar
+            </button>
+
+<pre><code class="language-python">
+import sqlite3
+from flask import g
+
+DATABASE = "database/bdlocadora.db"
+
+def get_db():
+
+    if "db" not in g:
+
+        g.db = sqlite3.connect(DATABASE)
+
+        g.db.row_factory = sqlite3.Row
+
+    return g.db
+
+def close_db(e=None):
+
+    db = g.pop("db", None)
+
+    if db is not None:
+        db.close()
+</code></pre>
+
+          </div>
+
+        </section>
+
+        <!-- PASSO -->
+        <section id="teste"
+                 class="step-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+
+          <div class="flex items-center gap-4 mb-6">
+
+            <div class="bg-green-100 text-green-700 w-14 h-14 rounded-2xl flex items-center justify-center">
+              <i data-lucide="shield-check"></i>
+            </div>
+
+            <div>
+              <p class="text-green-600 font-semibold">
+                PASSO 3
+              </p>
+
+              <h2 class="text-3xl font-bold">
+                Testando a Conexão
+              </h2>
+            </div>
+
+          </div>
+
+<pre><code class="language-python">
+@app.route("/teste-db")
+def teste_db():
+
+    db = get_db()
+
+    return "Banco conectado com sucesso 🚀"
+</code></pre>
+
+          <div class="mt-8 bg-green-50 border border-green-200 text-green-800 rounded-2xl p-5">
+            ✅ Se tudo estiver correto, a rota
+            <strong>/teste-db</strong>
+            exibirá a mensagem de sucesso.
+          </div>
+
+        </section>
+
+        <!-- PASSO -->
+        <section id="dao"
+                 class="step-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+
+          <div class="flex items-center gap-4 mb-6">
+
+            <div class="bg-orange-100 text-orange-700 w-14 h-14 rounded-2xl flex items-center justify-center">
+              <i data-lucide="terminal-square"></i>
+            </div>
+
+            <div>
+              <p class="text-orange-600 font-semibold">
+                PASSO 4
+              </p>
+
+              <h2 class="text-3xl font-bold">
+                Criando o Cliente DAO
+              </h2>
+            </div>
+
+          </div>
+
+<pre><code class="language-python">
+def inserir_cliente(dados):
+
+    db = get_db()
+
+    db.execute("""
+        INSERT INTO clientes
+        (nome, email)
+
+        VALUES (?, ?)
+    """, (
+
+        dados.get("nome"),
+        dados.get("email")
+
+    ))
+
+    db.commit()
+</code></pre>
+
+        </section>
+
+        <!-- PASSO -->
+        <section id="rotas"
+                 class="step-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+
+          <div class="flex items-center gap-4 mb-6">
+
+            <div class="bg-pink-100 text-pink-700 w-14 h-14 rounded-2xl flex items-center justify-center">
+              <i data-lucide="route"></i>
+            </div>
+
+            <div>
+              <p class="text-pink-600 font-semibold">
+                PASSO 5
+              </p>
+
+              <h2 class="text-3xl font-bold">
+                Criando as Rotas
+              </h2>
+            </div>
+
+          </div>
+
+<pre><code class="language-python">
+@app.route("/cliente/novo",
+methods=["GET", "POST"])
+
+def cliente():
+
+    if request.method == "POST":
+
+        dados = {
+            "nome": request.form.get("nome"),
+            "email": request.form.get("email")
+        }
+
+        inserir_cliente(dados)
+
+    return render_template(
+        "clientes/cadastro-clientes.html"
+    )
+</code></pre>
+
+        </section>
+
+        <!-- PASSO -->
+        <section id="formulario"
+                 class="step-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+
+          <div class="flex items-center gap-4 mb-6">
+
+            <div class="bg-cyan-100 text-cyan-700 w-14 h-14 rounded-2xl flex items-center justify-center">
+              <i data-lucide="file-code-2"></i>
+            </div>
+
+            <div>
+              <p class="text-cyan-600 font-semibold">
+                PASSO 6
+              </p>
+
+              <h2 class="text-3xl font-bold">
+                Ajustando o Formulário
+              </h2>
+            </div>
+
+          </div>
+
+<pre><code class="language-html">
+<form action="{{ url_for('cliente') }}"
+method="post">
+</form>
+</code></pre>
+
+          <div class="mt-8 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-2xl p-5">
+            ⚠️ Se o nome da rota estiver errado,
+            o Flask lançará um BuildError.
+          </div>
+
+        </section>
+
+        <!-- PASSO -->
+        <section id="erro"
+                 class="step-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+
+          <div class="flex items-center gap-4 mb-6">
+
+            <div class="bg-red-100 text-red-700 w-14 h-14 rounded-2xl flex items-center justify-center">
+              <i data-lucide="bug"></i>
+            </div>
+
+            <div>
+              <p class="text-red-600 font-semibold">
+                PASSO 7
+              </p>
+
+              <h2 class="text-3xl font-bold">
+                Entendendo o BuildError
+              </h2>
+            </div>
+
+          </div>
+
+<pre><code class="language-python">
+BuildError:
+Could not build url for endpoint
+</code></pre>
+
+          <div class="mt-8 bg-red-50 border border-red-200 text-red-800 rounded-2xl p-5 leading-8">
+
+            <p class="font-semibold mb-3">
+              🔥 Esse erro acontece quando:
+            </p>
+
+            <ul class="space-y-2 list-disc pl-5">
+              <li>o nome da rota está incorreto</li>
+              <li>o url_for() aponta para uma função inexistente</li>
+              <li>a rota ainda não foi criada</li>
+            </ul>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-16 text-center text-gray-500">
+
+    <p class="font-semibold">
+      Desenvolvido por Caio Malheiros 👨‍💻
+    </p>
+
+    <p class="mt-2 text-sm">
+      Tutorial Flask • Sistema Cineflix
+    </p>
+
+  </footer>
+
+  <!-- Prism -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Lucide -->
+  <script>
+    lucide.createIcons();
+  </script>
+
+</body>
+</html>
