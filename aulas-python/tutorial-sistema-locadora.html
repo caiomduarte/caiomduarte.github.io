@@ -1,7 +1,14 @@
 <!--
 =========================================
 TUTORIAL PYTHON - SISTEMA DE LOCADORA
-VERSÃO COMPLETA AJUSTADA
+=========================================
+RECURSOS:
+✅ Tutorial completo
+✅ Código completo no final
+✅ Bloqueio de CTRL+C
+✅ Bloqueio de CTRL+V
+✅ Bloqueio botão direito
+✅ Bloqueio seleção de texto
 =========================================
 -->
 
@@ -74,7 +81,6 @@ h2{
 h3{
     color:#facc15;
     margin-top:20px;
-    margin-bottom:10px;
 }
 
 p{
@@ -127,235 +133,7 @@ footer{
     text-align:center;
     margin-top:50px;
     color:#94a3b8;
-},
-/* ========================================= */
-/* HERO */
-/* ========================================= */
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:80px;
-
-    background:
-    radial-gradient(circle at top left, #6366f1 0%, transparent 35%),
-    radial-gradient(circle at bottom right, #7c3aed 0%, transparent 30%),
-    #020617;
-
-    overflow:hidden;
 }
-
-/* ========================================= */
-/* LEFT */
-/* ========================================= */
-
-.hero-left{
-    width:50%;
-    z-index:2;
-}
-
-.badge-hero{
-    display:inline-block;
-
-    padding:12px 24px;
-
-    border-radius:999px;
-
-    background:rgba(255,255,255,.06);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    color:#dbeafe;
-
-    font-size:1rem;
-
-    margin-bottom:35px;
-
-    backdrop-filter:blur(10px);
-}
-
-.hero h1{
-    font-size:7rem;
-    line-height:.95;
-    font-weight:800;
-    color:white;
-}
-
-.hero h1 span{
-    color:#818cf8;
-}
-
-.hero p{
-    margin-top:35px;
-    font-size:1.5rem;
-    line-height:1.8;
-    color:#cbd5e1;
-    max-width:750px;
-}
-
-/* ========================================= */
-/* BUTTONS */
-/* ========================================= */
-
-.buttons{
-    display:flex;
-    gap:25px;
-    margin-top:50px;
-}
-
-.btn-primary{
-
-    padding:22px 40px;
-
-    background:#6366f1;
-
-    border:none;
-
-    border-radius:24px;
-
-    color:white;
-
-    font-size:1.2rem;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.btn-primary:hover{
-    transform:translateY(-5px);
-    background:#7c3aed;
-}
-
-.btn-secondary{
-
-    padding:22px 40px;
-
-    background:transparent;
-
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:24px;
-
-    color:white;
-
-    font-size:1.2rem;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.btn-secondary:hover{
-    background:rgba(255,255,255,.05);
-}
-
-/* ========================================= */
-/* RIGHT */
-/* ========================================= */
-
-.hero-right{
-    width:42%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-/* ========================================= */
-/* CODE WINDOW */
-/* ========================================= */
-
-.code-window{
-
-    width:100%;
-
-    background:#d4d4d8;
-
-    padding:35px;
-
-    border-radius:35px;
-
-    box-shadow:
-    0 0 120px rgba(124,58,237,.45);
-
-    position:relative;
-}
-
-.code-inner{
-
-    background:#f4f4f5;
-
-    border-radius:28px;
-
-    padding:45px;
-
-    font-family:Consolas;
-
-    font-size:1.5rem;
-
-    line-height:2;
-}
-
-/* ========================================= */
-/* COLORS */
-/* ========================================= */
-
-.blue{
-    color:#0284c7;
-}
-
-.green{
-    color:#65a30d;
-}
-
-.pink{
-    color:#e11d48;
-}
-
-.orange{
-    color:#d97706;
-}
-
-/* ========================================= */
-/* RESPONSIVO */
-/* ========================================= */
-
-@media(max-width:1200px){
-
-    .hero{
-        flex-direction:column;
-        text-align:center;
-        gap:80px;
-        padding:60px 30px;
-    }
-
-    .hero-left,
-    .hero-right{
-        width:100%;
-    }
-
-    .hero h1{
-        font-size:4.5rem;
-    }
-
-    .hero p{
-        margin:auto;
-        margin-top:30px;
-    }
-
-    .buttons{
-        justify-content:center;
-        flex-wrap:wrap;
-    }
-
-}
-
 
 </style>
 
@@ -366,89 +144,42 @@ footer{
 <div class="container">
 
 <header>
-<section class="hero">
 
-    <!-- LEFT -->
-    <div class="hero-left">
-
-        <div class="badge-hero">
-            Python + Listas + Dicionários + Funções
-        </div>
-
-        <h1>
-            Sistema<br>
-            Locadora<br>
-            <span>MoviePy 🎬</span>
-        </h1>
-
-        <p>
-            Aprenda a desenvolver um sistema completo de locadora
-            utilizando Python puro de forma prática, moderna e divertida.
-        </p>
-
-        <div class="buttons">
-
-            <button class="btn-primary">
-                🚀 Começar Tutorial
-            </button>
-
-            <button class="btn-secondary">
-                📚 Ver Estrutura
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- RIGHT -->
-    <div class="hero-right">
-
-        <div class="code-window">
-
-            <div class="code-inner">
-
-<span class="blue">import</span> os<br><br>
-
-<span class="blue">def</span> <span class="pink">calcular_media</span>(avaliacoes):<br>
-
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">return</span> <span class="orange">round</span>(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange">sum</span>(avaliacoes) / <span class="orange">len</span>(avaliacoes), 1<br>
-&nbsp;&nbsp;&nbsp;&nbsp;)<br><br>
-
-<span class="blue">def</span> <span class="pink">classificar_filme</span>(media):<br>
-
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">if</span> media >= <span class="green">8</span>:<br>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">return</span> <span class="green">"🔥 Sucesso"</span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
 <h1>🎬 Sistema de Locadora em Python</h1>
 
 <p>
-Projeto completo utilizando listas, dicionários, funções e menus.
+Projeto completo utilizando funções, listas, dicionários e menus.
 </p>
 
 </header>
 
-<!-- ================================= -->
-<!-- CALCULAR MÉDIA -->
-<!-- ================================= -->
+<div class="card">
+
+<span class="badge">INTRODUÇÃO</span>
+
+<h2>📌 O que vamos construir?</h2>
+
+<p>
+Neste projeto vamos desenvolver um sistema completo de locadora utilizando Python puro.
+</p>
+
+<ul>
+<li>✅ Cadastro de filmes</li>
+<li>✅ Busca de filmes</li>
+<li>✅ Aluguel</li>
+<li>✅ Devolução</li>
+<li>✅ Avaliações</li>
+<li>✅ Média automática</li>
+<li>✅ Melhor e pior filme</li>
+</ul>
+
+</div>
 
 <div class="card">
 
 <span class="badge">PASSO 1</span>
 
-<h2>⭐ Função calcular média</h2>
-
-<p>
-Essa função calcula a média das avaliações dos filmes.
-</p>
+<h2>🧠 Criando a média</h2>
 
 <div class="code">
 <pre>
@@ -463,19 +194,11 @@ def calcular_media(avaliacoes):
 
 </div>
 
-<!-- ================================= -->
-<!-- CLASSIFICAR FILME -->
-<!-- ================================= -->
-
 <div class="card">
 
 <span class="badge">PASSO 2</span>
 
-<h2>🔥 Classificar filme</h2>
-
-<p>
-Agora vamos classificar o filme conforme sua média.
-</p>
+<h2>🔥 Classificando filmes</h2>
 
 <div class="code">
 <pre>
@@ -494,15 +217,11 @@ def classificar_filme(media):
 
 </div>
 
-<!-- ================================= -->
-<!-- CADASTRAR FILME -->
-<!-- ================================= -->
-
 <div class="card">
 
 <span class="badge">PASSO 3</span>
 
-<h2>🎥 Cadastrar filme</h2>
+<h2>🎥 Cadastro de filmes</h2>
 
 <div class="code">
 <pre>
@@ -527,76 +246,11 @@ def cadastrar_filme():
 
 </div>
 
-<!-- ================================= -->
-<!-- EXIBIR CATÁLOGO -->
-<!-- ================================= -->
-
 <div class="card">
 
 <span class="badge">PASSO 4</span>
 
-<h2>📚 Exibir catálogo</h2>
-
-<div class="code">
-<pre>
-def exibir_catalogo(filmes):
-
-    print("\n===== CATÁLOGO =====\n")
-
-    for f in filmes:
-
-        status = "Disponível"
-
-        if not f["disponivel"]:
-            status = f"Alugado por {f['cliente']}"
-
-        print(f"Título: {f['titulo']}")
-        print(f"Gênero: {f['genero']}")
-        print(f"Média: {f['media']}")
-        print(f"Avaliações: {len(f['avaliacoes'])}")
-        print(f"Classificação: {f['classificacao']}")
-        print(f"Status: {status}")
-
-        print("-" * 30)
-</pre>
-</div>
-
-</div>
-
-<!-- ================================= -->
-<!-- BUSCAR FILME -->
-<!-- ================================= -->
-
-<div class="card">
-
-<span class="badge">PASSO 5</span>
-
-<h2>🔍 Buscar filme</h2>
-
-<div class="code">
-<pre>
-def buscar_filme(titulo, filmes):
-
-    for f in filmes:
-
-        if f["titulo"].lower() == titulo.lower():
-            return f
-
-    return None
-</pre>
-</div>
-
-</div>
-
-<!-- ================================= -->
-<!-- ALUGAR FILME -->
-<!-- ================================= -->
-
-<div class="card">
-
-<span class="badge">PASSO 6</span>
-
-<h2>🍿 Alugar filme</h2>
+<h2>🍿 Alugando filmes</h2>
 
 <div class="code">
 <pre>
@@ -619,48 +273,128 @@ def alugar_filme(filmes):
 
             else:
                 print(f"❌ Já alugado por {f['cliente']}")
-
-            return
-
-    print("Filme não encontrado.")
 </pre>
 </div>
 
 </div>
 
-<!-- ================================= -->
-<!-- DEVOLVER FILME -->
-<!-- ================================= -->
-
 <div class="card">
 
-<span class="badge">PASSO 7</span>
+<span class="badge">PASSO FINAL</span>
 
-<h2>🔁 Devolver filme</h2>
+<h2>🚀 Código Completo do Sistema</h2>
 
 <div class="code">
-<pre>
-def devolver_filme(filmes):
 
+<pre>
+import os
+
+# ================================
+# FUNÇÕES BASE
+# ================================
+
+def calcular_media(avaliacoes):
+    if len(avaliacoes) == 0:
+        return 0
+    return round(sum(avaliacoes) / len(avaliacoes), 1)
+
+
+def classificar_filme(media):
+    if media >= 8:
+        return "🔥 Sucesso"
+    elif media >= 5:
+        return "👍 Regular"
+    else:
+        return "💀 Flop"
+
+
+# ================================
+# CADASTRAR FILME (ADMIN)
+# ================================
+def cadastrar_filme():
+    titulo = input("Título do filme: ")
+    genero = input("Gênero: ")
+
+    filme = {
+        "titulo": titulo,
+        "genero": genero,
+        "avaliacoes": [],
+        "media": 0,
+        "classificacao": "Sem avaliações",
+        "disponivel": True,
+        "cliente": None
+    }
+
+    return filme
+
+
+# ================================
+# EXIBIR CATÁLOGO
+# ================================
+def exibir_catalogo(filmes):
+    print("\n===== CATÁLOGO =====\n")
+
+    for f in filmes:
+        status = "Disponível" if f["disponivel"] else f"Alugado por {f['cliente']}"
+
+        print(f"Título: {f['titulo']}")
+        print(f"Gênero: {f['genero']}")
+        print(f"Média: {f['media']}")
+        print(f"Avaliações: {len(f['avaliacoes'])}")
+        print(f"Classificação: {f['classificacao']}")
+        print(f"Status: {status}")
+        print("-" * 30)
+
+
+# ================================
+# BUSCAR FILME
+# ================================
+def buscar_filme(titulo, filmes):
+    for f in filmes:
+        if f["titulo"].lower() == titulo.lower():
+            return f
+    return None
+
+
+# ================================
+# ALUGAR FILME
+# ================================
+def alugar_filme(filmes):
     titulo = input("Digite o título do filme: ")
 
     for f in filmes:
+        if f["titulo"].lower() == titulo.lower():
 
+            if f["disponivel"]:
+                nome = input("Seu nome: ")
+                f["disponivel"] = False
+                f["cliente"] = nome
+                print("🎬 Filme alugado!")
+            else:
+                print(f"❌ Já alugado por {f['cliente']}")
+            return
+
+    print("Filme não encontrado.")
+
+
+# ================================
+# DEVOLVER FILME + AVALIAR
+# ================================
+def devolver_filme(filmes):
+    titulo = input("Digite o título do filme: ")
+
+    for f in filmes:
         if f["titulo"].lower() == titulo.lower():
 
             if not f["disponivel"]:
-
                 print(f"Filme estava com: {f['cliente']}")
 
                 while True:
-
                     try:
-
                         nota = float(input("Dê uma nota (0 a 10): "))
 
                         if 0 <= nota <= 10:
                             break
-
                         else:
                             print("Nota inválida!")
 
@@ -670,15 +404,12 @@ def devolver_filme(filmes):
                 f["avaliacoes"].append(nota)
 
                 f["media"] = calcular_media(f["avaliacoes"])
-
                 f["classificacao"] = classificar_filme(f["media"])
 
                 f["disponivel"] = True
-
                 f["cliente"] = None
 
                 print("🔁 Devolvido com sucesso!")
-
                 print(f"⭐ Nova média: {f['media']}")
 
             else:
@@ -687,52 +418,25 @@ def devolver_filme(filmes):
             return
 
     print("Filme não encontrado.")
-</pre>
-</div>
 
-</div>
 
-<!-- ================================= -->
-<!-- MELHOR E PIOR FILME -->
-<!-- ================================= -->
-
-<div class="card">
-
-<span class="badge">PASSO 8</span>
-
-<h2>🏆 Melhor e pior filme</h2>
-
-<div class="code">
-<pre>
+# ================================
+# MELHOR E PIOR FILME
+# ================================
 def melhor_filme(filmes):
     return max(filmes, key=lambda f: f["media"])
 
 
 def pior_filme(filmes):
     return min(filmes, key=lambda f: f["media"])
-</pre>
-</div>
 
-</div>
 
-<!-- ================================= -->
-<!-- MENU CLIENTE -->
-<!-- ================================= -->
-
-<div class="card">
-
-<span class="badge">PASSO 9</span>
-
-<h2>👤 Menu Cliente</h2>
-
-<div class="code">
-<pre>
+# ================================
+# MENU CLIENTE
+# ================================
 def menu_cliente(filmes):
-
     while True:
-
         print("\n=== MENU CLIENTE 🍿 ===")
-
         print("1 - Ver catálogo")
         print("2 - Buscar filme")
         print("3 - Alugar filme")
@@ -742,22 +446,17 @@ def menu_cliente(filmes):
         op = input("Escolha: ")
 
         if op == "1":
-
             if len(filmes) == 0:
                 print("Nenhum filme disponível.")
-
             else:
                 exibir_catalogo(filmes)
 
         elif op == "2":
-
             nome = input("Digite o título: ")
-
             filme = buscar_filme(nome, filmes)
 
             if filme:
                 print(filme)
-
             else:
                 print("Não encontrado.")
 
@@ -772,25 +471,12 @@ def menu_cliente(filmes):
 
         else:
             print("Opção inválida!")
-</pre>
-</div>
 
-</div>
 
-<!-- ================================= -->
-<!-- MENU ADMIN -->
-<!-- ================================= -->
-
-<div class="card">
-
-<span class="badge">PASSO 10</span>
-
-<h2>🛠️ Menu Admin</h2>
-
-<div class="code">
-<pre>
+# ================================
+# MENU ADMIN
+# ================================
 def menu_admin(filmes):
-
     senha = input("Senha do admin: ")
 
     if senha != "123":
@@ -798,9 +484,7 @@ def menu_admin(filmes):
         return
 
     while True:
-
         print("\n=== MENU ADMIN 🛠️ ===")
-
         print("1 - Cadastrar filme")
         print("2 - Ver catálogo")
         print("3 - Top e Flop")
@@ -809,26 +493,18 @@ def menu_admin(filmes):
         op = input("Escolha: ")
 
         if op == "1":
-
             filme = cadastrar_filme()
-
             filmes.append(filme)
-
             print("Filme cadastrado!")
 
         elif op == "2":
-
             exibir_catalogo(filmes)
 
         elif op == "3":
-
             if len(filmes) == 0:
                 print("Sem filmes.")
-
             else:
-
                 print("\n🏆 Melhor:", melhor_filme(filmes))
-
                 print("\n💀 Pior:", pior_filme(filmes))
 
         elif op == "4":
@@ -836,23 +512,11 @@ def menu_admin(filmes):
 
         else:
             print("Opção inválida!")
-</pre>
-</div>
 
-</div>
 
-<!-- ================================= -->
-<!-- SISTEMA PRINCIPAL -->
-<!-- ================================= -->
-
-<div class="card">
-
-<span class="badge">PASSO FINAL</span>
-
-<h2>🚀 Sistema Principal</h2>
-
-<div class="code">
-<pre>
+# ================================
+# SISTEMA PRINCIPAL
+# ================================
 os.system("cls")
 
 filmes = []
@@ -860,7 +524,6 @@ filmes = []
 while True:
 
     print("\n=== LOCADORA 🎬 ===")
-
     print("1 - Cliente")
     print("2 - Admin")
     print("3 - Sair")
@@ -874,14 +537,17 @@ while True:
         menu_admin(filmes)
 
     elif op == "3":
-
         print("Encerrando... 👋")
-
         break
 
     else:
         print("Opção inválida!")
 </pre>
+
+</div>
+
+<div class="destaque">
+⚠️ Cópia, seleção de texto e colagem foram desabilitadas para fins didáticos.
 </div>
 
 </div>
