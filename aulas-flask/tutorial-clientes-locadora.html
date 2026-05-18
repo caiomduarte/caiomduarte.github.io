@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Pro: CRUD Flask + Padrão DAO com SQLite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <style>
+        /* ==========================================
+           RESET GLOBAL E TIPOGRAFIA
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-sidebar: #0b0f19;
+            --text-primary: #f8fafc;
+            --text-muted: #94a3b8;
+            --cyan: #06b6d4;
+            --cyan-hover: #22d3ee;
+            --warning: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+        }
+
+        /* ==========================================
+           BARRA SUPERIOR (TOPBAR)
+           ========================================== */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: var(--bg-sidebar);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            border-bottom: 2px solid #1e293b;
+            z-index: 1000;
+        }
+
+        .topbar-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+
+        .text-cyan {
+            color: var(--cyan);
+        }
+
+        .topbar-title {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================
+           LAYOUT CONTAINER PRINCIPAL
+           ========================================== */
+        .main-container {
+            display: flex;
+            margin-top: 60px;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* ==========================================
+           MENU LATERAL (SIDEBAR)
+           ========================================== */
+        .sidebar {
+            width: 290px;
+            background-color: var(--bg-sidebar);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+            border-right: 1px solid #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--text-primary);
+            background-color: var(--bg-card);
+            box-shadow: inset 4px 0 0 var(--cyan);
+        }
+
+        /* ==========================================
+           ÁREA DE CONTEÚDO
+           ========================================== */
+        .content-area {
+            margin-left: 290px;
+            flex: 1;
+            padding: 3rem;
+            max-width: 1000px;
+        }
+
+        /* ==========================================
+           SEÇÕES EM CARDS E ALERTAS
+           ========================================== */
+        .card-section {
+            background-color: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .card-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-section p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .alert {
+            display: flex;
+            gap: 1rem;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+
+        .alert-tip {
+            background-color: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid var(--cyan);
+        }
+
+        .alert-tip i {
+            color: var(--cyan);
+            font-size: 1.3rem;
+        }
+
+        .alert-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+        }
+
+        .alert-warning i {
+            color: var(--warning);
+            font-size: 1.3rem;
+        }
+
+        /* ==========================================
+           TERMINAL / CÓDIGO
+           ========================================== */
+        .code-header {
+            background-color: #0b0f19;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom: 1px solid #1e293b;
+            margin-top: 1rem;
+        }
+
+        pre {
+            margin-top: 0 !important;
+            margin-bottom: 1.5rem !important;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        /* ==========================================
+           BOTÕES E INTERAÇÕES
+           ========================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--cyan);
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--cyan-hover);
+            transform: translateY(-4px);
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--bg-card);
+            border: 1px solid #334155;
+            color: var(--text-primary);
+            border-radius: 50%;
+            z-index: 1100;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================
+           RESPONSIVIDADE (MOBILE)
+           ========================================== */
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -100%;
+                top: 60px;
+                height: calc(100vh - 60px);
+                z-index: 999;
+            }
+            
+            .sidebar.active {
+                left: 0;
+            }
+
+            .content-area {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-brand">
+            <i class="fa-solid fa-code text-cyan"></i>
+            <span>Aulas Backend <span class="text-cyan">- Caio Malheiros</span></span>
+        </div>
+        <div class="topbar-title">CRUD Profissional com Arquitetura DAO e Bootstrap</div>
+    </header>
+
+    <div class="main-container">
+        
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-links">
+                <li><a href="#intro" class="nav-item active"><i class="fa-solid fa-rocket"></i> Introdução</a></li>
+                <li><a href="#estrutura" class="nav-item"><i class="fa-solid fa-folder-tree"></i> Estrutura do Projeto</a></li>
+                <li><a href="#dbpy" class="nav-item"><i class="fa-solid fa-database"></i> 1. Arquivo db.py</a></li>
+                <li><a href="#daopy" class="nav-item"><i class="fa-solid fa-shield-halved"></i> 2. Camada DAO</a></li>
+                <li><a href="#apppy" class="nav-item"><i class="fa-solid fa-gears"></i> 3. Controladores (app.py)</a></li>
+                <li><a href="#templates-list" class="nav-item"><i class="fa-solid fa-list"></i> 4. Listagem com Bootstrap</a></li>
+                <li><a href="#templates-form" class="nav-item"><i class="fa-solid fa-file-invoice"></i> 5. Formulário Inteligente</a></li>
+                <li><a href="#executar" class="nav-item"><i class="fa-solid fa-play"></i> Como Executar</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <main class="content-area">
+            
+            <section id="intro" class="card-section">
+                <h2><i class="fa-solid fa-graduation-cap text-cyan"></i> O Próximo Nível da Programação</h2>
+                <p>Fala, dev! Agora que você já entende o básico de rotas, vamos dar um passo estratégico para o mercado de trabalho. Misturar comandos SQL direto dentro das rotas do site deixa o código confuso e difícil de manter.</p>
+                <p>Nesse projeto estruturado, vamos implementar o padrão <strong>DAO (Data Access Object)</strong>. Além disso, utilizaremos o **Bootstrap 5** para criar uma interface limpa, responsiva e moderna de forma muito ágil!</p>
+                
+                <div class="alert alert-tip">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <div>
+                        <strong>Dica do Mestre:</strong> Como o seu banco de dados <code>bdlocadora.db</code> já foi criado anteriormente, vamos focar inteiramente na arquitetura do código Python e na estilização profissional com Bootstrap!
+                    </div>
+                </div>
+            </section>
+
+            <section id="estrutura" class="card-section">
+                <h2><i class="fa-solid fa-folder-open text-cyan"></i> Estrutura exata de Diretórios</h2>
+                <p>Certifique-se de organizar seus arquivos exatamente desta forma dentro do VS Code:</p>
+                <pre><code class="language-text">SISTEMA-LOCADORA/
+│
+├── database/
+│   ├── bdlocadora.db      # O arquivo do banco de dados existente
+│   ├── db.py              # Gerenciador da conexão com o banco
+│   └── cliente_dao.py     # Onde ficam os comandos SQL (CRUD)
+│
+├── static/                # Arquivos complementares se necessário
+│
+├── templates/
+│   └── clientes/
+│       ├── cadastro-clientes.html
+│       └── listar-clientes.html
+│
+└── app.py                 # O coração das rotas da aplicação</code></pre>
+            </section>
+
+            <section id="dbpy" class="card-section">
+                <h2>1. Conexão Segura com Contexto (database/db.py)</h2>
+                <p>Este arquivo gerencia as conexões usando o objeto especial <code>g</code> do Flask. O <code>g</code> garante que a conexão dure apenas o tempo necessário de uma requisição e se feche sozinha no final.</p>
+                
+                <div class="code-header"> Código fonte de: database/db.py </div>
+                <pre><code class="language-python">import sqlite3  # Biblioteca padrão do Python para trabalhar com SQLite
+from flask import g  # Objeto do Flask para armazenar dados durante a requisição
+
+# Nome do arquivo do banco de dados
+DATABASE = "database/bdlocadora.db"
+
+def get_db():
+    # Verifica se já existe uma conexão salva no contexto da requisição
+    if "db" not in g:
+        # Se não existir, cria uma nova conexão com o banco
+        g.db = sqlite3.connect(DATABASE)
+
+        # Permite acessar os dados como dicionário (ex: linha["nome"])
+        g.db.row_factory = sqlite3.Row
+
+    # Retorna a conexão (nova ou já existente)
+    return g.db
+
+def close_db(e=None):
+    # Remove a conexão do g (se existir) e retorna ela
+    db = g.pop("db", None)
+
+    # Se a conexão existir, fecha ela
+    if db is not None:
+        db.close()
+
+def testar_conexao():
+    try:
+        db = get_db()  # tenta obter a conexão
+        cursor = db.cursor()
+
+        # Executa uma query simples
+        cursor.execute("SELECT 1")
+
+        print("Conexão com o banco funcionando!")
+        return True
+    except Exception as e:
+        print("Erro ao conectar no banco:", e)
+        return False</code></pre>
+            </section>
+
+            <section id="daopy" class="card-section">
+                <h2>2. Isolando o SQL com o Camada DAO (database/cliente_dao.py)</h2>
+                <p>O arquivo DAO é o único responsável por conversar com as colunas da nossa tabela de clientes.</p>
+                
+                <div class="code-header"> Código fonte de: database/cliente_dao.py </div>
+                <pre><code class="language-python">from database.db import get_db
+
+def listar_todos():
+    db = get_db()
+    return db.execute("SELECT * FROM tbclientes ORDER BY nome").fetchall()
+
+def salvar_novo(c):
+    db = get_db()
+    db.execute("""
+        INSERT INTO tbclientes (nome, endereco, bairro, cidade, estado, telefone, email, senha, datanascimento)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (c['nome'], c['endereco'], c['bairro'], c['cidade'], c['estado'], c['telefone'], c['email'], c['senha'], c['datanascimento']))
+    db.commit()
+
+def buscar_por_id(id):
+    db = get_db()
+    return db.execute("SELECT * FROM tbclientes WHERE codcliente = ?", (id,)).fetchone()
+
+def atualizar(id, c):
+    db = get_db()
+    db.execute("""
+        UPDATE tbclientes 
+        SET nome=?, endereco=?, bairro=?, cidade=?, estado=?, telefone=?, email=?, senha=?, datanascimento=?
+        WHERE codcliente=?
+    """, (c['nome'], c['endereco'], c['bairro'], c['cidade'], c['estado'], c['telefone'], c['email'], c['senha'], c['datanascimento'], id))
+    db.commit()
+
+def excluir(id):
+    db = get_db()
+    db.execute("DELETE FROM tbclientes WHERE codcliente = ?", (id,))
+    db.commit()</code></pre>
+            </section>
+
+            <section id="apppy" class="card-section">
+                <h2>3. Unindo Tudo com os Controladores de Rotas (app.py)</h2>
+                <p>O arquivo <code>app.py</code> gerencia o envio e recebimento de dados e delega as ações de banco para o DAO. Preste atenção nas definições de rotas dinâmicas como <code>&lt;int:id&gt;</code> para evitar erros de compilação.</p>
+                
+                <div class="code-header"> Código fonte de: app.py </div>
+                <pre><code class="language-python">from flask import Flask, render_template, request, redirect, url_for
+from database.db import close_db
+from database import cliente_dao
+
+app = Flask(__name__)
+app.secret_key = "chave_mestra_locadora"
+
+app.teardown_appcontext(close_db)
+
+@app.route('/')
+def home():
+    return redirect(url_for('listar'))
+
+@app.route('/clientes')
+def listar():
+    lista = cliente_dao.listar_todos()
+    return render_template('clientes/listar-clientes.html', clientes=lista)
+
+@app.route('/clientes/novo', methods=['GET', 'POST'])
+def novo():
+    if request.method == 'POST':
+        dados_cliente = {
+            'nome': request.form['nome'],
+            'endereco': request.form['endereco'],
+            'bairro': request.form['bairro'],
+            'cidade': request.form['cidade'],
+            'estado': request.form['estado'],
+            'telefone': request.form['telefone'],
+            'email': request.form['email'],
+            'senha': request.form['senha'],
+            'datanascimento': request.form['datanascimento']
+        }
+        cliente_dao.salvar_novo(dados_cliente)
+        return redirect(url_for('listar'))
+        
+    return render_template('clientes/cadastro-clientes.html', cliente=None)
+
+@app.route('/clientes/editar/&lt;int:id&gt;', methods=['GET', 'POST'])
+def editar(id):
+    if request.method == 'POST':
+        dados_atualizados = {
+            'nome': request.form['nome'],
+            'endereco': request.form['endereco'],
+            'bairro': request.form['bairro'],
+            'cidade': request.form['cidade'],
+            'estado': request.form['estado'],
+            'telefone': request.form['telefone'],
+            'email': request.form['email'],
+            'senha': request.form['senha'],
+            'datanascimento': request.form['datanascimento']
+        }
+        cliente_dao.atualizar(id, dados_atualizados)
+        return redirect(url_for('listar'))
+    
+    cliente_existente = cliente_dao.buscar_por_id(id)
+    return render_template('clientes/cadastro-clientes.html', cliente=cliente_existente)
+
+@app.route('/clientes/excluir/&lt;int:id&gt;', methods=['POST'])
+def excluir(id):
+    cliente_dao.excluir(id)
+    return redirect(url_for('listar'))
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+            </section>
+
+            <section id="templates-list" class="card-section">
+                <h2>4. Painel de Listagem (templates/clientes/listar-clientes.html)</h2>
+                <p>Aqui aplicamos classes nativas do Bootstrap como <code>table</code>, <code>table-hover</code>, <code>table-dark</code> e botões modernos com ícones do Font Awesome integrados.</p>
+                
+                <div class="code-header"> Código fonte de: templates/clientes/listar-clientes.html </div>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Locadora - Lista de Clientes&lt;/title&gt;
+    &lt;!-- Bootstrap 5 CSS CDN --&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+    &lt;!-- Font Awesome para os ícones das ações --&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;
+&lt;/head&gt;
+&lt;body class="bg-light"&gt;
+    &lt;div class="container my-5"&gt;
+        &lt;div class="card shadow-sm border-0"&gt;
+            &lt;div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3"&gt;
+                &lt;h5 class="mb-0"&gt;&lt;i class="fa-solid fa-users me-2"&gt;&lt;/i&gt;Gerenciamento de Clientes&lt;/h5&gt;
+                &lt;a href="{{ url_for('novo') }}" class="btn btn-info btn-sm fw-bold text-dark"&gt;
+                    &lt;i class="fa-solid fa-user-plus me-1"&gt;&lt;/i&gt; Novo Cliente
+                &lt;/a&gt;
+            &lt;/div&gt;
+            &lt;div class="card-body p-0"&gt;
+                &lt;div class="table-responsive"&gt;
+                    &lt;table class="table table-hover table-striped mb-0 align-middle"&gt;
+                        &lt;thead class="table-dark"&gt;
+                            &lt;tr&gt;
+                                &lt;th class="ps-3"&gt;ID&lt;/th&gt;
+                                &lt;th&gt;Nome&lt;/th&gt;
+                                &lt;th&gt;E-mail&lt;/th&gt;
+                                &lt;th&gt;Telefone&lt;/th&gt;
+                                &lt;th&gt;Cidade/UF&lt;/th&gt;
+                                &lt;th class="text-center pe-3"&gt;Ações&lt;/th&gt;
+                            &lt;/tr&gt;
+                        &lt;/thead&gt;
+                        &lt;tbody&gt;
+                            {% for c in clientes %}
+                            &lt;tr&gt;
+                                &lt;td class="ps-3 fw-bold text-muted"&gt;{{ c.codcliente }}&lt;/td&gt;
+                                &lt;td class="fw-semibold text-dark"&gt;{{ c.nome }}&lt;/td&gt;
+                                &lt;td&gt;{{ c.email }}&lt;/td&gt;
+                                &lt;td&gt;{{ c.telefone if c.telefone else '-' }}&lt;/td&gt;
+                                &lt;td&gt;{{ c.cidade if c.cidade else '-' }}/{{ c.estado if c.estado else '-' }}&lt;/td&gt;
+                                &lt;td class="text-center pe-3"&gt;
+                                    &lt;div class="btn-group btn-group-sm"&gt;
+                                        &lt;a href="{{ url_for('editar', id=c.codcliente) }}" class="btn btn-outline-primary" title="Editar"&gt;
+                                            &lt;i class="fa-solid fa-pen"&gt;&lt;/i&gt;
+                                        &lt;/a&gt;
+                                        &lt;form action="{{ url_for('excluir', id=c.codcliente) }}" method="POST" style="display:inline;" onsubmit="return confirm('Deseja realmente excluir este cliente?')"&gt;
+                                            &lt;button type="submit" class="btn btn-outline-danger" title="Excluir"&gt;
+                                                &lt;i class="fa-solid fa-trash"&gt;&lt;/i&gt;
+                                            &lt;/button&gt;
+                                        &lt;/form&gt;
+                                    &lt;/div&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            {% else %}
+                            &lt;tr&gt;
+                                &lt;td colspan="6" class="text-center py-4 text-muted"&gt;Nenhum cliente cadastrado até o momento.&lt;/td&gt;
+                            &lt;/tr&gt;
+                            {% endfor %}
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </section>
+
+            <section id="templates-form" class="card-section">
+                <h2>5. Formulário Inteligente em Grid (templates/clientes/cadastro-clientes.html)</h2>
+                <p>Usando o sistema de Grid do Bootstrap (<code>row</code> e <code>col-md-*</code>), nós organizamos os 10 campos de maneira elegante e totalmente responsiva para telas de celulares e computadores.</p>
+                
+                <div class="code-header"> Código fonte de: templates/clientes/cadastro-clientes.html </div>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;{% if cliente %}Editar{% else %}Novo{% endif %} Cliente&lt;/title&gt;
+    &lt;!-- Bootstrap 5 CSS CDN --&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;
+&lt;/head&gt;
+&lt;body class="bg-light"&gt;
+    &lt;div class="container my-5"&gt;
+        &lt;div class="row justify-content-center"&gt;
+            &lt;div class="col-lg-8"&gt;
+                &lt;div class="card shadow-sm border-0"&gt;
+                    &lt;div class="card-header bg-dark text-white py-3"&gt;
+                        &lt;h5 class="mb-0"&gt;
+                            &lt;i class="fa-solid {% if cliente %}fa-user-pen{% else %}fa-user-plus{% endif %} me-2"&gt;&lt;/i&gt;
+                            {% if cliente %}Atualizar Dados do Cliente{% else %}Cadastrar Novo Cliente{% endif %}
+                        &lt;/h5&gt;
+                    &lt;/div&gt;
+                    &lt;div class="card-body p-4"&gt;
+                        &lt;form method="POST" class="needs-validation"&gt;
+                            
+                            &lt;!-- Linha 1: Nome e Data Nascimento --&gt;
+                            &lt;div class="row g-3 mb-3"&gt;
+                                &lt;div class="col-md-8"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Nome Completo:*&lt;/label&gt;
+                                    &lt;input type="text" name="nome" class="form-control" value="{{ cliente.nome if cliente else '' }}" required&gt;
+                                &lt;/div&gt;
+                                &lt;div class="col-md-4"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Data de Nascimento:&lt;/label&gt;
+                                    &lt;input type="date" name="datanascimento" class="form-control" value="{{ cliente.datanascimento if cliente else '' }}"&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;!-- Linha 2: E-mail e Senha --&gt;
+                            &lt;div class="row g-3 mb-3"&gt;
+                                &lt;div class="col-md-6"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;E-mail de Contato:*&lt;/label&gt;
+                                    &lt;input type="email" name="email" class="form-control" value="{{ cliente.email if cliente else '' }}" required&gt;
+                                &lt;/div&gt;
+                                &lt;div class="col-md-6"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Senha de Acesso:*&lt;/label&gt;
+                                    &lt;input type="password" name="senha" class="form-control" value="{{ cliente.senha if cliente else '' }}" required&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;!-- Linha 3: Endereço e Telefone --&gt;
+                            &lt;div class="row g-3 mb-3"&gt;
+                                &lt;div class="col-md-8"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Endereço Residencial:&lt;/label&gt;
+                                    &lt;input type="text" name="endereco" class="form-control" value="{{ cliente.endereco if cliente else '' }}"&gt;
+                                &lt;/div&gt;
+                                &lt;div class="col-md-4"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Telefone / Celular:&lt;/label&gt;
+                                    &lt;input type="text" name="telefone" class="form-control" value="{{ cliente.telefone if cliente else '' }}" placeholder="(00) 00000-0000"&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;!-- Linha 4: Bairro, Cidade e Estado --&gt;
+                            &lt;div class="row g-3 mb-4"&gt;
+                                &lt;div class="col-md-4"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Bairro:&lt;/label&gt;
+                                    &lt;input type="text" name="bairro" class="form-control" value="{{ cliente.bairro if cliente else '' }}"&gt;
+                                &lt;/div&gt;
+                                &lt;div class="col-md-5"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Cidade:&lt;/label&gt;
+                                    &lt;input type="text" name="cidade" class="form-control" value="{{ cliente.cidade if cliente else '' }}"&gt;
+                                &lt;/div&gt;
+                                &lt;div class="col-md-3"&gt;
+                                    &lt;label class="form-label fw-semibold"&gt;Estado (UF):&lt;/label&gt;
+                                    &lt;input type="text" name="estado" class="form-control" maxlength="2" value="{{ cliente.estado if cliente else '' }}" placeholder="EX: SP"&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;!-- Botões de Ações --&gt;
+                            &lt;div class="d-flex justify-content-end gap-2"&gt;
+                                &lt;a href="{{ url_for('listar') }}" class="btn btn-secondary"&gt;Cancelar&lt;/a&gt;
+                                &lt;button type="submit" class="btn btn-dark px-4"&gt;
+                                    &lt;i class="fa-solid fa-floppy-disk me-1"&gt;&lt;/i&gt; Salvar Cliente
+                                &lt;/button&gt;
+                            &lt;/div&gt;
+                        &lt;/form&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </section>
+
+            <section id="executar" class="card-section">
+                <h2><i class="fa-solid fa-terminal text-cyan"></i> Inicializando o Sistema</h2>
+                <p>Certifique-se de que o arquivo <code>bdlocadora.db</code> já esteja salvo dentro da pasta <code>database</code> antes de ligar o servidor.</p>
+                
+                <div class="code-header"> No terminal do VS Code, execute: </div>
+                <pre><code class="language-bash">python app.py</code></pre>
+                <p>Pronto! Acesse o endereço local <strong class="text-cyan">http://127.0.0.1:5000/clientes</strong> no seu navegador para ver o sistema rodando com as novas regras arquiteturais.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <button class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Menu Responsivo Mobile (Toggle)
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    
+                    const icon = menuToggle.querySelector('i');
+                    if (sidebar.classList.contains('active')) {
+                        icon.className = 'fa-solid fa-xmark';
+                    } else {
+                        icon.className = 'fa-solid fa-bars';
+                    }
+                });
+            }
+
+            // 2. Botão Voltar ao Topo Reativo
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 3. Scroll Spy (Destaca o menu lateral conforme a rolagem)
+            const sections = document.querySelectorAll('.card-section');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            window.addEventListener('scroll', () => {
+                let currentSectionId = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    if (window.scrollY >= sectionTop) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${currentSectionId}`) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // Fechar sidebar mobile automaticamente ao selecionar um item
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        menuToggle.querySelector('i').className = 'fa-solid fa-bars';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
