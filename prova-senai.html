@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulário de Avaliação — TI Fundamentals</title>
+<title>Formulário de Avaliação — Avaliação SENAI - Desenvolvimento de Sistemas</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -449,13 +449,38 @@
     font-weight: 600;
   }
   .orientacoes-item.destaque .oi-icon { font-size: 18px; }
+
+  /* CODE QUESTIONS */
+  .code-card {
+    border-style: dashed;
+  }
+  .py .code-card {
+    background: linear-gradient(135deg, #16161a 0%, #1a1c14 100%);
+  }
+  .code-hint {
+    background: rgba(247,201,72,.07);
+    border: 1px solid rgba(247,201,72,.2);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .code-hint code {
+    font-family: 'Space Mono', monospace;
+    color: var(--accent-py);
+    background: rgba(247,201,72,.1);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="badge">Avaliação · 40 Questões Dissertativas</div>
-  <h1>TI <span>Fundamentals</span></h1>
+  <div class="badge">Avaliação · 42 Questões</div>
+  <h1>Avaliação SENAI &mdash; <span>Desenvolvimento de Sistemas</span></h1>
   <p>Formulário dissertativo — Python, Sistemas Operacionais, Redes e Levantamento de Requisitos</p>
 </header>
 <div class="orientacoes">
@@ -538,7 +563,7 @@
   <!-- Q3 -->
   <div class="question-card">
     <div class="q-number"><span class="q-dot"></span>QUESTÃO 03</div>
-    <p class="q-text">Explique a função <strong>print()</strong> e a função <strong>input()</strong>. Como elas são usadas para interagir com o usuário?</p>
+    <p class="q-text">O que são <strong>operadores de comparação</strong>? Dê exemplos de como eles são usados em Python e qual tipo de valor eles retornam.</p>
     <textarea name="q3" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
@@ -546,58 +571,82 @@
   <!-- Q4 -->
   <div class="question-card">
     <div class="q-number"><span class="q-dot"></span>QUESTÃO 04</div>
-    <p class="q-text">Quais são os <strong>operadores aritméticos</strong> disponíveis em Python? Cite-os e explique o que cada um faz, incluindo o operador de módulo e de exponenciação.</p>
+    <p class="q-text">Como funciona a estrutura <strong>if / elif / else</strong> em Python? Explique com um exemplo que verifique se um número é positivo, negativo ou zero.</p>
     <textarea name="q4" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
 
-  <!-- Q5 -->
+  <!-- Q3 -->
   <div class="question-card">
     <div class="q-number"><span class="q-dot"></span>QUESTÃO 05</div>
-    <p class="q-text">O que são <strong>operadores de comparação</strong>? Dê exemplos de como eles são usados em Python e qual tipo de valor eles retornam.</p>
+    <p class="q-text">Explique o funcionamento do laço <strong>while</strong> em Python. Em que situações ele é mais adequado do que o <em>for</em>? Dê um exemplo.</p>
     <textarea name="q5" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
 
-  <!-- Q6 -->
+  <!-- Q4 -->
   <div class="question-card">
     <div class="q-number"><span class="q-dot"></span>QUESTÃO 06</div>
-    <p class="q-text">Como funciona a estrutura <strong>if / elif / else</strong> em Python? Explique com um exemplo que verifique se um número é positivo, negativo ou zero.</p>
+    <p class="q-text">Como o laço <strong>for</strong> funciona em Python? Explique como ele percorre uma sequência e dê um exemplo com a função <em>range()</em>.</p>
     <textarea name="q6" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
 
-  <!-- Q7 -->
+  <!-- Q3 -->
   <div class="question-card">
     <div class="q-number"><span class="q-dot"></span>QUESTÃO 07</div>
-    <p class="q-text">Explique o funcionamento do laço <strong>while</strong> em Python. Em que situações ele é mais adequado do que o <em>for</em>? Dê um exemplo.</p>
+    <p class="q-text">O que é uma <strong>lista</strong> em Python? Como criamos, acessamos e modificamos elementos de uma lista? Explique e dê exemplos.</p>
     <textarea name="q7" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
 
-  <!-- Q8 -->
+  <!-- Q4 -->
   <div class="question-card">
     <div class="q-number"><span class="q-dot"></span>QUESTÃO 08</div>
-    <p class="q-text">Como o laço <strong>for</strong> funciona em Python? Explique como ele percorre uma sequência e dê um exemplo com a função <em>range()</em>.</p>
+    <p class="q-text">Cite e explique pelo menos <strong>quatro métodos</strong> comuns de listas em Python (ex: append, remove, sort, pop). O que cada um faz?</p>
     <textarea name="q8" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
-
-  <!-- Q9 -->
-  <div class="question-card">
-    <div class="q-number"><span class="q-dot"></span>QUESTÃO 09</div>
-    <p class="q-text">O que é uma <strong>lista</strong> em Python? Como criamos, acessamos e modificamos elementos de uma lista? Explique e dê exemplos.</p>
-    <textarea name="q9" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+  <!-- Q41 -->
+  <div class="question-card code-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO BÔNUS 01 &mdash; <span style="color:var(--accent-py);font-size:10px;">CÓDIGO PYTHON</span></div>
+    <p class="q-text">
+      Crie um programa de <strong>cálculo de estacionamento</strong>. O usuário deve informar a
+      <strong>quantidade de horas</strong> e o <strong>tipo do veículo</strong> (<em>carro</em>, <em>moto</em> ou <em>suv</em>).
+      O programa deve calcular e exibir o <strong>valor total a pagar em reais</strong>, seguindo as regras abaixo:
+    </p>
+    <div class="code-hint" style="margin-bottom:8px;">
+      &#x1F4B0; <strong>Preço por hora:</strong> &nbsp;Carro &rarr; R$ 8,00 &nbsp;|&nbsp; Moto &rarr; R$ 5,00 &nbsp;|&nbsp; SUV &rarr; R$ 12,00
+    </div>
+    <div class="code-hint" style="margin-bottom:12px;">
+      &#x23F0; <strong>Acréscimos:</strong> &nbsp;Acima de 5h &rarr; +5% no total &nbsp;|&nbsp; Acima de 10h &rarr; +10% no total<br>
+      &#x1F4A1; Use <code>def</code> para criar pelo menos <strong>uma função</strong> no seu programa (ex: calcular o preço, aplicar o acréscimo ou exibir o resultado)
+    </div>
+    <textarea name="q9" placeholder="Escreva seu código Python aqui..." oninput="onInput(this)" style="font-family:'Space Mono',monospace;font-size:13px;min-height:180px;"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
 
-  <!-- Q10 -->
-  <div class="question-card">
-    <div class="q-number"><span class="q-dot"></span>QUESTÃO 10</div>
-    <p class="q-text">Cite e explique pelo menos <strong>quatro métodos</strong> comuns de listas em Python (ex: append, remove, sort, pop). O que cada um faz?</p>
-    <textarea name="q10" placeholder="Escreva sua resposta aqui..." oninput="onInput(this)"></textarea>
+  <!-- Q42 -->
+  <div class="question-card code-card">
+    <div class="q-number"><span class="q-dot"></span>QUESTÃO BÔNUS 02 &mdash; <span style="color:var(--accent-py);font-size:10px;">CÓDIGO PYTHON</span></div>
+    <p class="q-text">
+      Crie um programa de <strong>calculadora de IMC</strong> (Índice de Massa Corporal).
+      O usuário deve informar seu <strong>nome</strong>, <strong>peso (kg)</strong> e <strong>altura (m)</strong>.
+      O programa deve calcular o IMC e exibir uma mensagem com o <strong>nome</strong> da pessoa e sua <strong>classificação</strong>, conforme a tabela abaixo.
+      Use <code>def</code> para criar <strong>pelo menos duas funções</strong>: uma para calcular o IMC e outra para retornar a classificação.
+    </p>
+    <div class="code-hint" style="margin-bottom:12px;">
+      &#x1F4CA; <strong>Tabela IMC:</strong><br>
+      &nbsp;&nbsp;IMC &lt; 18.5 &rarr; <em>Abaixo do peso</em><br>
+      &nbsp;&nbsp;18.5 &le; IMC &lt; 25 &rarr; <em>Peso normal</em><br>
+      &nbsp;&nbsp;25 &le; IMC &lt; 30 &rarr; <em>Sobrepeso</em><br>
+      &nbsp;&nbsp;IMC &ge; 30 &rarr; <em>Obesidade</em><br><br>
+      &#x1F4A1; Fórmula: <code>imc = peso / (altura ** 2)</code>
+    </div>
+    <textarea name="q10" placeholder="Escreva seu código Python aqui..." oninput="onInput(this)" style="font-family:'Space Mono',monospace;font-size:13px;min-height:180px;"></textarea>
     <div class="char-count"><span class="cc">0</span> caracteres</div>
   </div>
+
 </div>
 
 <!-- ═══════════════ SISTEMAS OPERACIONAIS ═══════════════ -->
@@ -965,6 +1014,31 @@
     font-weight: 600;
   }
   .orientacoes-item.destaque .oi-icon { font-size: 18px; }
+
+  /* CODE QUESTIONS */
+  .code-card {
+    border-style: dashed;
+  }
+  .py .code-card {
+    background: linear-gradient(135deg, #16161a 0%, #1a1c14 100%);
+  }
+  .code-hint {
+    background: rgba(247,201,72,.07);
+    border: 1px solid rgba(247,201,72,.2);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .code-hint code {
+    font-family: 'Space Mono', monospace;
+    color: var(--accent-py);
+    background: rgba(247,201,72,.1);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
 </style>
 
 <!-- CONFIRM MODAL -->
